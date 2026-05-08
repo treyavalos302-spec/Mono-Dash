@@ -167,7 +167,7 @@ class FilesOverlayMenu extends ConsumerWidget {
               },
             ),
             FrostedMenuItem(
-              text: l10n.remoteDownload_title,
+              text: l10n.serverDetail_uploadFromRemote,
               icon: TablerIcons.cloud_download,
               action: () async {
                 final path =

@@ -744,7 +744,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    task.fileName,
+                    truncateMiddle(task.fileName, 32),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,

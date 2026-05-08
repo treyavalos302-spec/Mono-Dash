@@ -96,18 +96,18 @@ class _PanelSettingsContent extends StatelessWidget {
             ),
           ],
         ),
-        SubMenuSection(
-          items: [
-            SubMenuItem(
-              title: l10n.panelSettings_about,
-              icon: TablerIcons.info_circle,
-              iconColor: CupertinoColors.systemGrey,
-              onTap: () => Navigator.of(context).push(
-                CupertinoPageRoute<void>(builder: (_) => const AboutPage()),
-              ),
-            ),
-          ],
-        ),
+        // SubMenuSection(
+        //   items: [
+        //     SubMenuItem(
+        //       title: l10n.panelSettings_about,
+        //       icon: TablerIcons.info_circle,
+        //       iconColor: CupertinoColors.systemGrey,
+        //       onTap: () => Navigator.of(context).push(
+        //         CupertinoPageRoute<void>(builder: (_) => const AboutPage()),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }

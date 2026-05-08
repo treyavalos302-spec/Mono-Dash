@@ -3947,14 +3947,20 @@ abstract class AppLocalizations {
   /// Server detail files action to upload images from photo library.
   ///
   /// In en, this message translates to:
-  /// **'Upload from Photos'**
+  /// **'From Photos'**
   String get serverDetail_uploadFromPhotos;
 
   /// Server detail files action to upload from file picker.
   ///
   /// In en, this message translates to:
-  /// **'Upload from Files'**
+  /// **'From Files'**
   String get serverDetail_uploadFromFiles;
+
+  /// Server detail files action to create a remote download upload source.
+  ///
+  /// In en, this message translates to:
+  /// **'From Remote'**
+  String get serverDetail_uploadFromRemote;
 
   /// Server detail files action to manage file shares.
   ///
@@ -3983,13 +3989,13 @@ abstract class AppLocalizations {
   /// Server detail files action to hide hidden files.
   ///
   /// In en, this message translates to:
-  /// **'Hide Hidden Files'**
+  /// **'Hide Hidden'**
   String get serverDetail_hideHiddenFiles;
 
   /// Server detail files action to show hidden files.
   ///
   /// In en, this message translates to:
-  /// **'Show All Files'**
+  /// **'Show Hidden'**
   String get serverDetail_showAllFiles;
 
   /// Server detail files sort settings action.

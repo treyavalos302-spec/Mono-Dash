@@ -2133,10 +2133,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get serverDetail_exitSelection => 'Exit Selection';
 
   @override
-  String get serverDetail_uploadFromPhotos => 'Upload from Photos';
+  String get serverDetail_uploadFromPhotos => 'From Photos';
 
   @override
-  String get serverDetail_uploadFromFiles => 'Upload from Files';
+  String get serverDetail_uploadFromFiles => 'From Files';
+
+  @override
+  String get serverDetail_uploadFromRemote => 'From Remote';
 
   @override
   String get serverDetail_shareManagement => 'Share Management';
@@ -2151,10 +2154,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get serverDetail_iconView => 'Icon View';
 
   @override
-  String get serverDetail_hideHiddenFiles => 'Hide Hidden Files';
+  String get serverDetail_hideHiddenFiles => 'Hide Hidden';
 
   @override
-  String get serverDetail_showAllFiles => 'Show All Files';
+  String get serverDetail_showAllFiles => 'Show Hidden';
 
   @override
   String get serverDetail_sortSettings => 'Sort Settings';

@@ -2080,6 +2080,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get serverDetail_uploadFromFiles => '从文件选取上传';
 
   @override
+  String get serverDetail_uploadFromRemote => '远程下载';
+
+  @override
   String get serverDetail_shareManagement => '分享管理';
 
   @override

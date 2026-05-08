@@ -105,6 +105,8 @@ class _FileImageViewerPageState extends ConsumerState<FileImageViewerPage> {
       trailingBuilder: (isDark, isOverlapping) => FrostedActionButton(
         text: context.l10n.common_share,
         icon: TablerIcons.share_2,
+        isDark: true,
+        isOverlapping: isOverlapping,
         showBlur: false,
         foregroundColor: CupertinoColors.white,
         onTap: _imageData != null ? _shareImage : null,

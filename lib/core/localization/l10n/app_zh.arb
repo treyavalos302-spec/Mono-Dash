@@ -643,6 +643,7 @@
   "serverDetail_exitSelection": "退出多选",
   "serverDetail_uploadFromPhotos": "从照片库上传",
   "serverDetail_uploadFromFiles": "从文件选取上传",
+  "serverDetail_uploadFromRemote": "远程下载",
   "serverDetail_shareManagement": "分享管理",
   "serverDetail_viewSettings": "视图设置",
   "serverDetail_listView": "列表视图",

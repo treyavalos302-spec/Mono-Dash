@@ -2930,13 +2930,17 @@
   "@serverDetail_exitSelection": {
     "description": "Server detail files action to exit selection mode."
   },
-  "serverDetail_uploadFromPhotos": "Upload from Photos",
+  "serverDetail_uploadFromPhotos": "From Photos",
   "@serverDetail_uploadFromPhotos": {
     "description": "Server detail files action to upload images from photo library."
   },
-  "serverDetail_uploadFromFiles": "Upload from Files",
+  "serverDetail_uploadFromFiles": "From Files",
   "@serverDetail_uploadFromFiles": {
     "description": "Server detail files action to upload from file picker."
+  },
+  "serverDetail_uploadFromRemote": "From Remote",
+  "@serverDetail_uploadFromRemote": {
+    "description": "Server detail files action to create a remote download upload source."
   },
   "serverDetail_shareManagement": "Share Management",
   "@serverDetail_shareManagement": {
@@ -2954,11 +2958,11 @@
   "@serverDetail_iconView": {
     "description": "Server detail files icon view option."
   },
-  "serverDetail_hideHiddenFiles": "Hide Hidden Files",
+  "serverDetail_hideHiddenFiles": "Hide Hidden",
   "@serverDetail_hideHiddenFiles": {
     "description": "Server detail files action to hide hidden files."
   },
-  "serverDetail_showAllFiles": "Show All Files",
+  "serverDetail_showAllFiles": "Show Hidden",
   "@serverDetail_showAllFiles": {
     "description": "Server detail files action to show hidden files."
   },
