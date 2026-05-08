@@ -1994,10 +1994,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get premium_moreFeaturesDescription => '桌面小组件、多端同步等更多高级功能正在开发中，敬请期待。';
 
   @override
-  String get premium_supportTitle => '独立开发者支持';
+  String get premium_supportTitle => '支持开源项目';
 
   @override
-  String get premium_supportDescription => '您的支持是应用持续更新和新功能开发的动力。';
+  String get premium_supportDescription =>
+      'Mono Dash 是托管在 GitHub 上的开源项目。您的支持会帮助项目持续维护和推进新功能。';
 
   @override
   String get premium_loading => '加载中...';
@@ -3485,7 +3486,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '面板连接信息保存在本机，API Key 使用系统安全存储。购买由 App Store 或 Google Play 处理，RevenueCat 只用于同步购买状态。';
 
   @override
-  String get settings_help_openSourceTitle => '开源项目';
+  String get settings_help_openSourceTitle => '查看源码';
 
   @override
   String get settings_help_openSourceSubtitle => '查看 Mono Dash 的 GitHub 仓库';

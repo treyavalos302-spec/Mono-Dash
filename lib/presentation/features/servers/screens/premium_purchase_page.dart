@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/localization/generated/app_localizations.dart';
 import '../../../../core/localization/l10n_x.dart';
@@ -9,6 +10,10 @@ import '../../../common/app_toast.dart';
 import '../../../common/components/frosted_scaffold.dart';
 import '../../purchases/providers/purchase_provider.dart';
 import '../providers/servers_provider.dart';
+
+const _privacyPolicyUrl =
+    'https://github.com/bin64/Mono-Dash/blob/main/PRIVACY.md';
+const _termsOfUseUrl = 'https://github.com/bin64/Mono-Dash/blob/main/TERMS.md';
 
 class PremiumPurchasePage extends ConsumerWidget {
   final bool isFromLimitPrompt;
@@ -261,9 +266,7 @@ class PremiumPurchasePage extends ConsumerWidget {
           children: [
             _LegalLink(
               label: l10n.premium_terms,
-              onTap: () {
-                // TODO: Open Terms URL
-              },
+              onTap: () => _openLegalLink(context, _termsOfUseUrl),
             ),
             Container(
               width: 1,
@@ -273,9 +276,7 @@ class PremiumPurchasePage extends ConsumerWidget {
             ),
             _LegalLink(
               label: l10n.premium_privacy,
-              onTap: () {
-                // TODO: Open Privacy URL
-              },
+              onTap: () => _openLegalLink(context, _privacyPolicyUrl),
             ),
           ],
         ),
@@ -293,6 +294,14 @@ class PremiumPurchasePage extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _openLegalLink(BuildContext context, String url) async {
+    final uri = Uri.parse(url);
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched && context.mounted) {
+      showAppErrorToast(context.l10n.settings_contact_openFailed);
+    }
   }
 
   Future<void> _purchaseUnlimitedServers(WidgetRef ref) async {

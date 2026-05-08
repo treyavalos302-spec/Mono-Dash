@@ -2052,11 +2052,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Desktop widgets, multi-device sync, and more advanced features are in development.';
 
   @override
-  String get premium_supportTitle => 'Support Independent Development';
+  String get premium_supportTitle => 'Support Open Source';
 
   @override
   String get premium_supportDescription =>
-      'Your support helps keep the app updated and new features moving forward.';
+      'Mono Dash is open source on GitHub. Your support helps keep the project maintained and new features moving forward.';
 
   @override
   String get premium_loading => 'Loading...';
@@ -3580,7 +3580,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Panel connection information is stored on this device. API Keys use secure system storage. Purchases are processed by the App Store or Google Play, and RevenueCat is only used to sync purchase status.';
 
   @override
-  String get settings_help_openSourceTitle => 'Open Source Project';
+  String get settings_help_openSourceTitle => 'Source Code';
 
   @override
   String get settings_help_openSourceSubtitle =>

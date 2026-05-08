@@ -3794,16 +3794,16 @@ abstract class AppLocalizations {
   /// **'Desktop widgets, multi-device sync, and more advanced features are in development.'**
   String get premium_moreFeaturesDescription;
 
-  /// Premium benefit title for supporting the developer.
+  /// Premium benefit title for supporting the open source project.
   ///
   /// In en, this message translates to:
-  /// **'Support Independent Development'**
+  /// **'Support Open Source'**
   String get premium_supportTitle;
 
-  /// Premium benefit description for supporting the developer.
+  /// Premium benefit description for supporting the open source project.
   ///
   /// In en, this message translates to:
-  /// **'Your support helps keep the app updated and new features moving forward.'**
+  /// **'Mono Dash is open source on GitHub. Your support helps keep the project maintained and new features moving forward.'**
   String get premium_supportDescription;
 
   /// Premium purchase price loading fallback.
@@ -6605,7 +6605,7 @@ abstract class AppLocalizations {
   /// Settings row title for the Mono Dash source repository.
   ///
   /// In en, this message translates to:
-  /// **'Open Source Project'**
+  /// **'Source Code'**
   String get settings_help_openSourceTitle;
 
   /// Settings row subtitle for the Mono Dash source repository.

@@ -28,8 +28,11 @@ import 'open_source_licenses_page.dart';
 import 'premium_purchase_page.dart';
 
 const _issueTrackerUrl = 'https://github.com/bin64/Mono-Dash/issues';
+const _privacyPolicyUrl =
+    'https://github.com/bin64/Mono-Dash/blob/main/PRIVACY.md';
 const _repositoryUrl = 'https://github.com/bin64/Mono-Dash';
 const _supportGroupUrl = 'https://t.me/mono_dash';
+const _termsOfUseUrl = 'https://github.com/bin64/Mono-Dash/blob/main/TERMS.md';
 
 class ServersSettingsTab extends ConsumerWidget {
   const ServersSettingsTab({super.key});
@@ -195,26 +198,6 @@ class ServersSettingsTab extends ConsumerWidget {
                     title: l10n.settings_help_contactTitle,
                     subtitle: l10n.settings_help_contactSubtitle,
                     onTap: () => _showContactSupportSheet(context),
-                  ),
-                  _SettingsRow(
-                    icon: CupertinoIcons.lock_shield_fill,
-                    iconColor: CupertinoColors.systemIndigo,
-                    title: l10n.settings_help_apiKeyTitle,
-                    onTap: () => _showInfoDialog(
-                      context,
-                      title: l10n.settings_help_apiKeyTitle,
-                      content: l10n.settings_help_apiKeyContent,
-                    ),
-                  ),
-                  _SettingsRow(
-                    icon: CupertinoIcons.hand_raised_fill,
-                    iconColor: CupertinoColors.systemTeal,
-                    title: l10n.settings_help_privacyTitle,
-                    onTap: () => _showInfoDialog(
-                      context,
-                      title: l10n.settings_help_privacyTitle,
-                      content: l10n.settings_help_privacyContent,
-                    ),
                   ),
                   _SettingsRow(
                     icon: TablerIcons.brand_github,
@@ -391,6 +374,14 @@ class _AppInfoFooter extends StatefulWidget {
 class _AppInfoFooterState extends State<_AppInfoFooter> {
   late final Future<PackageInfo> _packageInfo = PackageInfo.fromPlatform();
 
+  Future<void> _openLegalLink(BuildContext context, String url) async {
+    final uri = Uri.parse(url);
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched && context.mounted) {
+      showAppErrorToast(context.l10n.settings_contact_openFailed);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<PackageInfo>(
@@ -427,10 +418,51 @@ class _AppInfoFooterState extends State<_AppInfoFooter> {
                   color: AppColors.tertiaryLabel(context),
                 ),
               ),
+              const SizedBox(height: 8),
+              Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 14,
+                runSpacing: 2,
+                children: [
+                  _FooterLinkButton(
+                    label: context.l10n.premium_terms,
+                    onPressed: () => _openLegalLink(context, _termsOfUseUrl),
+                  ),
+                  _FooterLinkButton(
+                    label: context.l10n.premium_privacy,
+                    onPressed: () => _openLegalLink(context, _privacyPolicyUrl),
+                  ),
+                ],
+              ),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class _FooterLinkButton extends StatelessWidget {
+  const _FooterLinkButton({required this.label, required this.onPressed});
+
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      minimumSize: const Size(24, 24),
+      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+      onPressed: onPressed,
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: CupertinoColors.activeBlue.resolveFrom(context),
+        ),
+      ),
     );
   }
 }

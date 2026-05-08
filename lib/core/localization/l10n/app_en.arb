@@ -2820,13 +2820,13 @@
   "@premium_moreFeaturesDescription": {
     "description": "Premium benefit description for future features."
   },
-  "premium_supportTitle": "Support Independent Development",
+  "premium_supportTitle": "Support Open Source",
   "@premium_supportTitle": {
-    "description": "Premium benefit title for supporting the developer."
+    "description": "Premium benefit title for supporting the open source project."
   },
-  "premium_supportDescription": "Your support helps keep the app updated and new features moving forward.",
+  "premium_supportDescription": "Mono Dash is open source on GitHub. Your support helps keep the project maintained and new features moving forward.",
   "@premium_supportDescription": {
-    "description": "Premium benefit description for supporting the developer."
+    "description": "Premium benefit description for supporting the open source project."
   },
   "premium_loading": "Loading...",
   "@premium_loading": {
@@ -4913,7 +4913,7 @@
   "@settings_help_privacyContent": {
     "description": "Help dialog content explaining privacy and purchases."
   },
-  "settings_help_openSourceTitle": "Open Source Project",
+  "settings_help_openSourceTitle": "Source Code",
   "@settings_help_openSourceTitle": {
     "description": "Settings row title for the Mono Dash source repository."
   },
