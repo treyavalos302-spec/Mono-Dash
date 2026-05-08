@@ -144,8 +144,23 @@ class ServersNotifier extends _$ServersNotifier {
   }
 }
 
+class ServerDashboardSnapshot {
+  const ServerDashboardSnapshot({
+    required this.dashboard,
+    required this.fetchMs,
+  });
+
+  final Dashboard dashboard;
+  final int fetchMs;
+}
+
 final serverDashboardSnapshotProvider = FutureProvider.autoDispose
-    .family<Dashboard, int>((ref, serverId) async {
+    .family<ServerDashboardSnapshot, int>((ref, serverId) async {
       final client = await ref.watch(dioClientProvider(serverId).future);
-      return DashboardApi(client).getDashboardSnapshot();
+      final stopWatch = Stopwatch()..start();
+      final dashboard = await DashboardApi(client).getDashboardSnapshot();
+      return ServerDashboardSnapshot(
+        dashboard: dashboard,
+        fetchMs: stopWatch.elapsedMilliseconds,
+      );
     });

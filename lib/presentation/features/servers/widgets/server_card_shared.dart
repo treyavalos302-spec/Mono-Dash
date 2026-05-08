@@ -2,17 +2,27 @@ import '../../../../domain/entities/dashboard.dart';
 import '../../../../core/localization/generated/app_localizations.dart';
 
 class ServerCardStatus {
-  const ServerCardStatus({required this.isLoading, required this.hasData});
+  const ServerCardStatus({
+    required this.isLoading,
+    required this.hasData,
+    this.latencyMs,
+  });
 
   factory ServerCardStatus.fromSnapshot({
     required bool isLoading,
     required bool hasData,
+    int? latencyMs,
   }) {
-    return ServerCardStatus(isLoading: isLoading && !hasData, hasData: hasData);
+    return ServerCardStatus(
+      isLoading: isLoading && !hasData,
+      hasData: hasData,
+      latencyMs: latencyMs,
+    );
   }
 
   final bool isLoading;
   final bool hasData;
+  final int? latencyMs;
 
   String get terminalLabel => hasData ? 'online' : 'unknown';
   String simpleLabel(AppLocalizations l10n) =>

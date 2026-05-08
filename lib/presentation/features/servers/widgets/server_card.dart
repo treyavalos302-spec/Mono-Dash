@@ -25,10 +25,12 @@ class ServerCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final snapshot = ref.watch(serverDashboardSnapshotProvider(server.id));
-    final dashboard = snapshot.valueOrNull;
+    final snapshotData = snapshot.valueOrNull;
+    final dashboard = snapshotData?.dashboard;
     final status = ServerCardStatus.fromSnapshot(
       isLoading: snapshot.isLoading,
       hasData: dashboard != null,
+      latencyMs: snapshotData?.fetchMs,
     );
 
     return switch (style) {

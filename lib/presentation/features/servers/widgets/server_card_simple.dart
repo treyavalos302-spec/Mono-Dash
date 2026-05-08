@@ -188,7 +188,7 @@ class _SimpleHeader extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         if (loading)
-          const SkeletonItem(width: 48, height: 24, borderRadius: 999)
+          const SkeletonItem(width: 68, height: 24, borderRadius: 6)
         else
           _SimpleStatusPill(status: status),
       ],
@@ -222,6 +222,41 @@ class _SimpleStatusPill extends StatelessWidget {
   Widget build(BuildContext context) {
     if (status.isLoading) {
       return const CupertinoActivityIndicator(radius: 8);
+    }
+
+    final latencyMs = status.latencyMs;
+    if (status.hasData && latencyMs != null) {
+      final isSlow = latencyMs > 500;
+      final color = isSlow
+          ? CupertinoColors.systemOrange.resolveFrom(context)
+          : CupertinoColors.systemGreen.resolveFrom(context);
+
+      return Container(
+        width: 68,
+        height: 24,
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: color.withValues(alpha: 0.1), width: 0.5),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(TablerIcons.activity_heartbeat, size: 11, color: color),
+            const SizedBox(width: 3),
+            Text(
+              '${latencyMs}ms',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: color,
+                height: 1,
+                letterSpacing: -0.2,
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
     return Container(

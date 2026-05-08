@@ -72,9 +72,16 @@ class _DashboardPageState extends ConsumerState<DashboardPage>
 
     final serversAsync = ref.watch(serversNotifierProvider);
     final activeServerId = ref.watch(activeServerIdProvider);
+    final base = asyncData.valueOrNull?.dashboard.base;
     final displayName = serversAsync.maybeWhen(
-      data: (servers) =>
-          servers.firstWhere((s) => s.id == activeServerId).displayName,
+      data: (servers) {
+        final server = servers.firstWhere((s) => s.id == activeServerId);
+        return server.name?.isNotEmpty == true
+            ? server.name!
+            : (base?.hostname.isNotEmpty == true
+                  ? base!.hostname
+                  : server.displayName);
+      },
       orElse: () => null,
     );
 
