@@ -4913,6 +4913,30 @@
   "@settings_help_privacyContent": {
     "description": "Help dialog content explaining privacy and purchases."
   },
+  "settings_help_openSourceTitle": "Open Source Project",
+  "@settings_help_openSourceTitle": {
+    "description": "Settings row title for the Mono Dash source repository."
+  },
+  "settings_help_openSourceSubtitle": "View the Mono Dash GitHub repository",
+  "@settings_help_openSourceSubtitle": {
+    "description": "Settings row subtitle for the Mono Dash source repository."
+  },
+  "settings_openSource_projectTitle": "Mono Dash is open source",
+  "@settings_openSource_projectTitle": {
+    "description": "Open source project sheet card title."
+  },
+  "settings_openSource_projectContent": "Mono Dash source code is hosted on GitHub. You can inspect the code, submit issues, or help improve this third-party mobile management client for 1Panel.",
+  "@settings_openSource_projectContent": {
+    "description": "Open source project sheet content."
+  },
+  "settings_openSource_openRepository": "Open GitHub Repository",
+  "@settings_openSource_openRepository": {
+    "description": "Button label for opening the Mono Dash source repository."
+  },
+  "settings_openSource_copyRepositoryUrl": "Copy Repository Link",
+  "@settings_openSource_copyRepositoryUrl": {
+    "description": "Button label for copying the Mono Dash source repository URL."
+  },
   "settings_help_licensesTitle": "Open Source Licenses",
   "@settings_help_licensesTitle": {
     "description": "Help entry title for open source licenses."

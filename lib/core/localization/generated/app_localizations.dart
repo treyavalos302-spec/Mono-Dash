@@ -6602,6 +6602,42 @@ abstract class AppLocalizations {
   /// **'Panel connection information is stored on this device. API Keys use secure system storage. Purchases are processed by the App Store or Google Play, and RevenueCat is only used to sync purchase status.'**
   String get settings_help_privacyContent;
 
+  /// Settings row title for the Mono Dash source repository.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Source Project'**
+  String get settings_help_openSourceTitle;
+
+  /// Settings row subtitle for the Mono Dash source repository.
+  ///
+  /// In en, this message translates to:
+  /// **'View the Mono Dash GitHub repository'**
+  String get settings_help_openSourceSubtitle;
+
+  /// Open source project sheet card title.
+  ///
+  /// In en, this message translates to:
+  /// **'Mono Dash is open source'**
+  String get settings_openSource_projectTitle;
+
+  /// Open source project sheet content.
+  ///
+  /// In en, this message translates to:
+  /// **'Mono Dash source code is hosted on GitHub. You can inspect the code, submit issues, or help improve this third-party mobile management client for 1Panel.'**
+  String get settings_openSource_projectContent;
+
+  /// Button label for opening the Mono Dash source repository.
+  ///
+  /// In en, this message translates to:
+  /// **'Open GitHub Repository'**
+  String get settings_openSource_openRepository;
+
+  /// Button label for copying the Mono Dash source repository URL.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Repository Link'**
+  String get settings_openSource_copyRepositoryUrl;
+
   /// Help entry title for open source licenses.
   ///
   /// In en, this message translates to:

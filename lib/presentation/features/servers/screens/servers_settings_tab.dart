@@ -28,6 +28,7 @@ import 'open_source_licenses_page.dart';
 import 'premium_purchase_page.dart';
 
 const _issueTrackerUrl = 'https://github.com/bin64/Mono-Dash/issues';
+const _repositoryUrl = 'https://github.com/bin64/Mono-Dash';
 const _supportGroupUrl = 'https://t.me/mono_dash';
 
 class ServersSettingsTab extends ConsumerWidget {
@@ -214,6 +215,13 @@ class ServersSettingsTab extends ConsumerWidget {
                       title: l10n.settings_help_privacyTitle,
                       content: l10n.settings_help_privacyContent,
                     ),
+                  ),
+                  _SettingsRow(
+                    icon: TablerIcons.brand_github,
+                    iconColor: CupertinoColors.systemPurple,
+                    title: l10n.settings_help_openSourceTitle,
+                    subtitle: l10n.settings_help_openSourceSubtitle,
+                    onTap: () => _showOpenSourceProjectSheet(context),
                   ),
                   _SettingsRow(
                     icon: CupertinoIcons.doc_text_fill,
@@ -514,6 +522,14 @@ Future<void> _showContactSupportSheet(BuildContext context) {
   );
 }
 
+Future<void> _showOpenSourceProjectSheet(BuildContext context) {
+  return showActionSheet<void>(
+    context: context,
+    expand: false,
+    builder: (_) => const _OpenSourceProjectSheet(),
+  );
+}
+
 class _ContactSupportSheet extends StatelessWidget {
   const _ContactSupportSheet();
 
@@ -604,6 +620,131 @@ class _ContactSupportSheet extends StatelessWidget {
                 fontSize: 12,
                 color: AppColors.tertiaryLabel(context),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OpenSourceProjectSheet extends StatelessWidget {
+  const _OpenSourceProjectSheet();
+
+  Future<void> _openRepository(BuildContext context) async {
+    final uri = Uri.parse(_repositoryUrl);
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched && context.mounted) {
+      showAppErrorToast(context.l10n.settings_contact_openFailed);
+    }
+  }
+
+  Future<void> _copyRepositoryUrl(BuildContext context) async {
+    await Clipboard.setData(const ClipboardData(text: _repositoryUrl));
+    if (context.mounted) {
+      showAppSuccessToast(context.l10n.common_copiedToClipboard);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
+    return ActionSheetScaffold(
+      isAdaptive: true,
+      showHandle: false,
+      isFloating: true,
+      hasHorizontalPadding: true,
+      contentPadding: EdgeInsets.zero,
+      useModalScrollController: false,
+      panelHeader: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: CupertinoButton(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(
+                  l10n.common_close,
+                  style: TextStyle(
+                    color: AppColors.secondaryLabel(context),
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              l10n.settings_help_openSourceTitle,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: AppColors.label(context),
+                letterSpacing: -0.4,
+              ),
+            ),
+          ],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _ContactInfoCard(
+              icon: TablerIcons.brand_github,
+              iconColor: CupertinoColors.systemPurple.resolveFrom(context),
+              title: l10n.settings_openSource_projectTitle,
+              content: l10n.settings_openSource_projectContent,
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: AppColors.secondaryBackground(
+                  context,
+                ).withValues(alpha: 0.58),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColors.separator(context).withValues(alpha: 0.14),
+                  width: 0.5,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    TablerIcons.git_branch,
+                    size: 18,
+                    color: AppColors.secondaryLabel(context),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      _repositoryUrl,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        height: 1.3,
+                        color: AppColors.label(context),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            CupertinoButton.filled(
+              onPressed: () => _openRepository(context),
+              child: Text(l10n.settings_openSource_openRepository),
+            ),
+            const SizedBox(height: 8),
+            CupertinoButton(
+              onPressed: () => _copyRepositoryUrl(context),
+              child: Text(l10n.settings_openSource_copyRepositoryUrl),
             ),
           ],
         ),
@@ -886,7 +1027,9 @@ class _CacheManagementSheetState extends State<_CacheManagementSheet> {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               decoration: BoxDecoration(
-                color: AppColors.secondaryBackground(context).withValues(alpha: 0.8),
+                color: AppColors.secondaryBackground(
+                  context,
+                ).withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: AppColors.separator(context).withValues(alpha: 0.1),
@@ -899,7 +1042,9 @@ class _CacheManagementSheetState extends State<_CacheManagementSheet> {
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
-                      color: CupertinoColors.systemGrey.resolveFrom(context).withValues(alpha: 0.1),
+                      color: CupertinoColors.systemGrey
+                          .resolveFrom(context)
+                          .withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(
@@ -937,7 +1082,7 @@ class _CacheManagementSheetState extends State<_CacheManagementSheet> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Description
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -964,18 +1109,24 @@ class _CacheManagementSheetState extends State<_CacheManagementSheet> {
                 decoration: BoxDecoration(
                   color: canClear
                       ? CupertinoColors.systemRed.resolveFrom(context)
-                      : AppColors.secondaryBackground(context).withValues(alpha: 0.5),
+                      : AppColors.secondaryBackground(
+                          context,
+                        ).withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(12),
                   border: canClear
                       ? null
                       : Border.all(
-                          color: AppColors.separator(context).withValues(alpha: 0.1),
+                          color: AppColors.separator(
+                            context,
+                          ).withValues(alpha: 0.1),
                           width: 0.5,
                         ),
                 ),
                 child: Center(
                   child: _isClearing
-                      ? const CupertinoActivityIndicator(color: CupertinoColors.white)
+                      ? const CupertinoActivityIndicator(
+                          color: CupertinoColors.white,
+                        )
                       : Text(
                           l10n.settings_cache_clearTitle,
                           style: TextStyle(

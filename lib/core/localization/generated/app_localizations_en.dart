@@ -3580,6 +3580,26 @@ class AppLocalizationsEn extends AppLocalizations {
       'Panel connection information is stored on this device. API Keys use secure system storage. Purchases are processed by the App Store or Google Play, and RevenueCat is only used to sync purchase status.';
 
   @override
+  String get settings_help_openSourceTitle => 'Open Source Project';
+
+  @override
+  String get settings_help_openSourceSubtitle =>
+      'View the Mono Dash GitHub repository';
+
+  @override
+  String get settings_openSource_projectTitle => 'Mono Dash is open source';
+
+  @override
+  String get settings_openSource_projectContent =>
+      'Mono Dash source code is hosted on GitHub. You can inspect the code, submit issues, or help improve this third-party mobile management client for 1Panel.';
+
+  @override
+  String get settings_openSource_openRepository => 'Open GitHub Repository';
+
+  @override
+  String get settings_openSource_copyRepositoryUrl => 'Copy Repository Link';
+
+  @override
   String get settings_help_licensesTitle => 'Open Source Licenses';
 
   @override

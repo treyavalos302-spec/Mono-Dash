@@ -15,11 +15,9 @@ final purchaseControllerProvider =
 class RevenueCatConfig {
   const RevenueCatConfig._();
 
-  static const iosApiKey = String.fromEnvironment('REVENUECAT_IOS_API_KEY');
-  static const androidApiKey = String.fromEnvironment(
-    'REVENUECAT_ANDROID_API_KEY',
-  );
-  static const webApiKey = String.fromEnvironment('REVENUECAT_WEB_API_KEY');
+  static const iosApiKey = 'appl_uQclCTdAgutFrwPUlmIzMxhagIe';
+  static const androidApiKey = '';
+  static const webApiKey = '';
   static const entitlementId = 'Mono Dash Unlimited';
   static const offeringId = 'default';
   static const freeServerLimit = 1;

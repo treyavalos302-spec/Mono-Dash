@@ -3485,6 +3485,25 @@ class AppLocalizationsZh extends AppLocalizations {
       '面板连接信息保存在本机，API Key 使用系统安全存储。购买由 App Store 或 Google Play 处理，RevenueCat 只用于同步购买状态。';
 
   @override
+  String get settings_help_openSourceTitle => '开源项目';
+
+  @override
+  String get settings_help_openSourceSubtitle => '查看 Mono Dash 的 GitHub 仓库';
+
+  @override
+  String get settings_openSource_projectTitle => 'Mono Dash 是开源项目';
+
+  @override
+  String get settings_openSource_projectContent =>
+      'Mono Dash 的源代码托管在 GitHub。你可以查看代码、提交 Issue，或参与改进这个第三方 1Panel 移动管理客户端。';
+
+  @override
+  String get settings_openSource_openRepository => '打开 GitHub 仓库';
+
+  @override
+  String get settings_openSource_copyRepositoryUrl => '复制仓库链接';
+
+  @override
   String get settings_help_licensesTitle => '开源许可';
 
   @override
