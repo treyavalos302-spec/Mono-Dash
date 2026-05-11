@@ -11337,4 +11337,299 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get databases_remarkInfo => 'Remark';
+
+  @override
+  String get supervisor_title => 'Process Guard';
+
+  @override
+  String get supervisor_menuTitle => 'Process Guard';
+
+  @override
+  String get supervisor_menuSubtitle =>
+      'Manage Supervisor services, process configs, and logs';
+
+  @override
+  String get supervisor_serviceStart => 'Start Supervisor';
+
+  @override
+  String get supervisor_serviceStop => 'Stop Supervisor';
+
+  @override
+  String get supervisor_serviceRestart => 'Restart Supervisor';
+
+  @override
+  String get supervisor_initSupervisor => 'Initialize Supervisor';
+
+  @override
+  String get supervisor_settings => 'Settings';
+
+  @override
+  String supervisor_serviceOperateConfirm(String operation) {
+    return 'Confirm $operation for the Supervisor service?';
+  }
+
+  @override
+  String supervisor_processOperateConfirm(String operation, String name) {
+    return 'Confirm $operation for $name?';
+  }
+
+  @override
+  String get supervisor_operationSuccess => 'Operation succeeded';
+
+  @override
+  String get supervisor_operationFailed => 'Operation failed';
+
+  @override
+  String get supervisor_refreshFailed => 'Refresh failed';
+
+  @override
+  String get supervisor_notReady => 'Supervisor is not ready';
+
+  @override
+  String get supervisor_processConfigSubtitle =>
+      'Supervisor process configuration';
+
+  @override
+  String get supervisor_mainConfig => 'Supervisor Main Config';
+
+  @override
+  String get supervisor_mainLog => 'Supervisor Main Log';
+
+  @override
+  String get supervisor_configSource => 'Main Config Source';
+
+  @override
+  String get supervisor_configSourceSubtitle =>
+      'Read and save the supervisord main config';
+
+  @override
+  String get supervisor_mainLogSubtitle =>
+      'Read the supervisord logfile by line';
+
+  @override
+  String get supervisor_baseInit => 'Base / Reinitialize';
+
+  @override
+  String get supervisor_baseInitSubtitle =>
+      'Main config path and systemctl service name';
+
+  @override
+  String get supervisor_processStartSubtitle => 'Start this process group';
+
+  @override
+  String get supervisor_processStopSubtitle => 'Stop this process group';
+
+  @override
+  String get supervisor_processRestartSubtitle => 'Restart this process group';
+
+  @override
+  String get supervisor_configAndLogs => 'Config & Logs';
+
+  @override
+  String get supervisor_editSubtitle =>
+      'Change command, directory, user, and startup policy';
+
+  @override
+  String get supervisor_sourceFile => 'Source File';
+
+  @override
+  String get supervisor_sourceFileSubtitle =>
+      'View or edit this process ini snippet';
+
+  @override
+  String get supervisor_runLogSubtitle => 'View the standard output log';
+
+  @override
+  String get supervisor_errorLogSubtitle => 'View the standard error log';
+
+  @override
+  String get supervisor_workDir => 'Working Directory';
+
+  @override
+  String get supervisor_dangerZone => 'Danger Zone';
+
+  @override
+  String get supervisor_deleteSubtitle =>
+      'Delete this process config and update Supervisor';
+
+  @override
+  String get supervisor_notInstalledTitle => 'supervisord Not Detected';
+
+  @override
+  String get supervisor_notInstalledSubtitle =>
+      'Install Supervisor on the server first and make sure the systemd service exists.';
+
+  @override
+  String get supervisor_ctlMissingTitle => 'supervisorctl Not Detected';
+
+  @override
+  String get supervisor_ctlMissingSubtitle =>
+      'The process list and process operations depend on supervisorctl.';
+
+  @override
+  String get supervisor_needInitTitle => 'Initialization Required';
+
+  @override
+  String get supervisor_needInitSubtitle =>
+      'Initialization rewrites the [include] files parameter in the main config and restarts the Supervisor service.';
+
+  @override
+  String get supervisor_emptyTitle => 'No Guarded Processes';
+
+  @override
+  String get supervisor_emptySubtitle =>
+      'After creating a process, the corresponding ini config and stdout/stderr log paths are generated.';
+
+  @override
+  String get supervisor_serviceStoppedWarn =>
+      'The Supervisor service is not running, so process status may be unavailable. Start it from the top-right menu.';
+
+  @override
+  String get supervisor_chooseWorkDir => 'Choose Working Directory';
+
+  @override
+  String get supervisor_requiredFields => 'Fill in all required fields';
+
+  @override
+  String get supervisor_nameRule =>
+      'Name supports letters, numbers, - and _, and cannot start with a special character';
+
+  @override
+  String get supervisor_numprocsRule =>
+      'Process count must be between 1 and 9999';
+
+  @override
+  String get supervisor_updateSuccess => 'Updated';
+
+  @override
+  String get supervisor_createSuccess => 'Created';
+
+  @override
+  String get supervisor_saveFailed => 'Save failed';
+
+  @override
+  String get supervisor_createProcess => 'Create Guarded Process';
+
+  @override
+  String get supervisor_editProcess => 'Edit Guarded Process';
+
+  @override
+  String get supervisor_name => 'Name';
+
+  @override
+  String get supervisor_user => 'Run User';
+
+  @override
+  String get supervisor_command => 'Start Command';
+
+  @override
+  String get supervisor_numprocs => 'Process Count';
+
+  @override
+  String get supervisor_environment => 'Environment';
+
+  @override
+  String get supervisor_autoRestart => 'Auto Restart';
+
+  @override
+  String get supervisor_autoRestartSubtitle =>
+      'Supervisor restarts the process after an abnormal exit';
+
+  @override
+  String get supervisor_autoStart => 'Auto Start';
+
+  @override
+  String get supervisor_autoStartSubtitle =>
+      'Start this process automatically when Supervisor starts';
+
+  @override
+  String get supervisor_configPathAndServiceRequired =>
+      'Enter the main config path and service name';
+
+  @override
+  String get supervisor_initSuccess => 'Initialized';
+
+  @override
+  String get supervisor_initFailed => 'Initialization failed';
+
+  @override
+  String get supervisor_initTitle => 'Initialize Supervisor';
+
+  @override
+  String get supervisor_initWarning =>
+      'Initialization modifies the [include] files parameter in the main config and restarts the matching systemd service.';
+
+  @override
+  String get supervisor_primaryConfig => 'Main Config File';
+
+  @override
+  String get supervisor_serviceName => 'Service Name';
+
+  @override
+  String get supervisor_clearLog => 'Clear Log';
+
+  @override
+  String get supervisor_clearLogConfirm => 'Clear the current log file?';
+
+  @override
+  String get supervisor_logCleared => 'Log cleared';
+
+  @override
+  String get supervisor_clearFailed => 'Clear failed';
+
+  @override
+  String get supervisor_clear => 'Clear';
+
+  @override
+  String get supervisor_lineCount => 'Lines';
+
+  @override
+  String get supervisor_follow => 'Follow';
+
+  @override
+  String get supervisor_runLog => 'Run Log';
+
+  @override
+  String get supervisor_errorLog => 'Error Log';
+
+  @override
+  String get supervisor_readLogFailed => 'Failed to Read Logs';
+
+  @override
+  String get supervisor_emptyLogTitle => 'No Logs';
+
+  @override
+  String get supervisor_emptyLogSubtitle =>
+      'The log file is empty or has not been generated yet.';
+
+  @override
+  String supervisor_processCountShort(String count) {
+    return '$count processes';
+  }
+
+  @override
+  String supervisor_moreChildren(int count) {
+    return '$count more child processes';
+  }
+
+  @override
+  String get supervisor_statusStarting => 'Starting';
+
+  @override
+  String get supervisor_statusRunning => 'Running';
+
+  @override
+  String get supervisor_statusWarning => 'Partially Running';
+
+  @override
+  String get supervisor_statusStopped => 'Stopped';
+
+  @override
+  String get supervisor_start => 'Start';
+
+  @override
+  String get supervisor_stop => 'Stop';
+
+  @override
+  String get supervisor_restart => 'Restart';
 }

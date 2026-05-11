@@ -21,6 +21,8 @@ class RevenueCatConfig {
   static const entitlementId = 'Mono Dash Unlimited';
   static const offeringId = 'default';
   static const freeServerLimit = 1;
+  // Local debug switch: set to true to skip the paid server limit check.
+  static const bypassServerLimitCheck = true;
 
   static String? get apiKey {
     if (kIsWeb) return webApiKey.isEmpty ? null : webApiKey;
@@ -63,6 +65,7 @@ class PurchaseState {
   final String? message;
 
   bool canAddServer(int serverCount) {
+    if (RevenueCatConfig.bypassServerLimitCheck) return true;
     return isUnlocked || serverCount < freeServerLimit;
   }
 

@@ -15189,5 +15189,384 @@
   "databases_remarkInfo": "Remark",
   "@databases_remarkInfo": {
     "description": "Remote database remark placeholder."
+  },
+  "supervisor_title": "Process Guard",
+  "@supervisor_title": {
+    "description": "Supervisor feature page title."
+  },
+  "supervisor_menuTitle": "Process Guard",
+  "@supervisor_menuTitle": {
+    "description": "Supervisor feature menu title."
+  },
+  "supervisor_menuSubtitle": "Manage Supervisor services, process configs, and logs",
+  "@supervisor_menuSubtitle": {
+    "description": "Supervisor feature menu subtitle."
+  },
+  "supervisor_serviceStart": "Start Supervisor",
+  "@supervisor_serviceStart": {
+    "description": "Start Supervisor service menu item."
+  },
+  "supervisor_serviceStop": "Stop Supervisor",
+  "@supervisor_serviceStop": {
+    "description": "Stop Supervisor service menu item."
+  },
+  "supervisor_serviceRestart": "Restart Supervisor",
+  "@supervisor_serviceRestart": {
+    "description": "Restart Supervisor service menu item."
+  },
+  "supervisor_initSupervisor": "Initialize Supervisor",
+  "@supervisor_initSupervisor": {
+    "description": "Initialize Supervisor menu item."
+  },
+  "supervisor_settings": "Settings",
+  "@supervisor_settings": {
+    "description": "Supervisor settings label."
+  },
+  "supervisor_serviceOperateConfirm": "Confirm {operation} for the Supervisor service?",
+  "@supervisor_serviceOperateConfirm": {
+    "description": "Confirmation message for Supervisor service operation.",
+    "placeholders": {
+      "operation": {
+        "type": "String"
+      }
+    }
+  },
+  "supervisor_processOperateConfirm": "Confirm {operation} for {name}?",
+  "@supervisor_processOperateConfirm": {
+    "description": "Confirmation message for Supervisor process operation.",
+    "placeholders": {
+      "operation": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "supervisor_operationSuccess": "Operation succeeded",
+  "@supervisor_operationSuccess": {
+    "description": "Supervisor operation success toast."
+  },
+  "supervisor_operationFailed": "Operation failed",
+  "@supervisor_operationFailed": {
+    "description": "Supervisor operation failure toast."
+  },
+  "supervisor_refreshFailed": "Refresh failed",
+  "@supervisor_refreshFailed": {
+    "description": "Supervisor refresh failure toast."
+  },
+  "supervisor_notReady": "Supervisor is not ready",
+  "@supervisor_notReady": {
+    "description": "Supervisor not ready warning."
+  },
+  "supervisor_processConfigSubtitle": "Supervisor process configuration",
+  "@supervisor_processConfigSubtitle": {
+    "description": "Subtitle for Supervisor process config editor."
+  },
+  "supervisor_mainConfig": "Supervisor Main Config",
+  "@supervisor_mainConfig": {
+    "description": "Supervisor main config title."
+  },
+  "supervisor_mainLog": "Supervisor Main Log",
+  "@supervisor_mainLog": {
+    "description": "Supervisor main log title."
+  },
+  "supervisor_configSource": "Main Config Source",
+  "@supervisor_configSource": {
+    "description": "Supervisor main config source action."
+  },
+  "supervisor_configSourceSubtitle": "Read and save the supervisord main config",
+  "@supervisor_configSourceSubtitle": {
+    "description": "Supervisor main config source subtitle."
+  },
+  "supervisor_mainLogSubtitle": "Read the supervisord logfile by line",
+  "@supervisor_mainLogSubtitle": {
+    "description": "Supervisor main log subtitle."
+  },
+  "supervisor_baseInit": "Base / Reinitialize",
+  "@supervisor_baseInit": {
+    "description": "Supervisor base init action."
+  },
+  "supervisor_baseInitSubtitle": "Main config path and systemctl service name",
+  "@supervisor_baseInitSubtitle": {
+    "description": "Supervisor base init action subtitle."
+  },
+  "supervisor_processStartSubtitle": "Start this process group",
+  "@supervisor_processStartSubtitle": {
+    "description": "Supervisor process start action subtitle."
+  },
+  "supervisor_processStopSubtitle": "Stop this process group",
+  "@supervisor_processStopSubtitle": {
+    "description": "Supervisor process stop action subtitle."
+  },
+  "supervisor_processRestartSubtitle": "Restart this process group",
+  "@supervisor_processRestartSubtitle": {
+    "description": "Supervisor process restart action subtitle."
+  },
+  "supervisor_configAndLogs": "Config & Logs",
+  "@supervisor_configAndLogs": {
+    "description": "Supervisor action section title."
+  },
+  "supervisor_editSubtitle": "Change command, directory, user, and startup policy",
+  "@supervisor_editSubtitle": {
+    "description": "Supervisor edit action subtitle."
+  },
+  "supervisor_sourceFile": "Source File",
+  "@supervisor_sourceFile": {
+    "description": "Supervisor source file action."
+  },
+  "supervisor_sourceFileSubtitle": "View or edit this process ini snippet",
+  "@supervisor_sourceFileSubtitle": {
+    "description": "Supervisor source file action subtitle."
+  },
+  "supervisor_runLogSubtitle": "View the standard output log",
+  "@supervisor_runLogSubtitle": {
+    "description": "Supervisor stdout log action subtitle."
+  },
+  "supervisor_errorLogSubtitle": "View the standard error log",
+  "@supervisor_errorLogSubtitle": {
+    "description": "Supervisor stderr log action subtitle."
+  },
+  "supervisor_workDir": "Working Directory",
+  "@supervisor_workDir": {
+    "description": "Supervisor working directory label."
+  },
+  "supervisor_dangerZone": "Danger Zone",
+  "@supervisor_dangerZone": {
+    "description": "Supervisor danger section title."
+  },
+  "supervisor_deleteSubtitle": "Delete this process config and update Supervisor",
+  "@supervisor_deleteSubtitle": {
+    "description": "Supervisor delete action subtitle."
+  },
+  "supervisor_notInstalledTitle": "supervisord Not Detected",
+  "@supervisor_notInstalledTitle": {
+    "description": "Supervisor missing state title."
+  },
+  "supervisor_notInstalledSubtitle": "Install Supervisor on the server first and make sure the systemd service exists.",
+  "@supervisor_notInstalledSubtitle": {
+    "description": "Supervisor missing state subtitle."
+  },
+  "supervisor_ctlMissingTitle": "supervisorctl Not Detected",
+  "@supervisor_ctlMissingTitle": {
+    "description": "Supervisor ctl missing state title."
+  },
+  "supervisor_ctlMissingSubtitle": "The process list and process operations depend on supervisorctl.",
+  "@supervisor_ctlMissingSubtitle": {
+    "description": "Supervisor ctl missing state subtitle."
+  },
+  "supervisor_needInitTitle": "Initialization Required",
+  "@supervisor_needInitTitle": {
+    "description": "Supervisor initialization required state title."
+  },
+  "supervisor_needInitSubtitle": "Initialization rewrites the [include] files parameter in the main config and restarts the Supervisor service.",
+  "@supervisor_needInitSubtitle": {
+    "description": "Supervisor initialization required state subtitle."
+  },
+  "supervisor_emptyTitle": "No Guarded Processes",
+  "@supervisor_emptyTitle": {
+    "description": "Supervisor empty state title."
+  },
+  "supervisor_emptySubtitle": "After creating a process, the corresponding ini config and stdout/stderr log paths are generated.",
+  "@supervisor_emptySubtitle": {
+    "description": "Supervisor empty state subtitle."
+  },
+  "supervisor_serviceStoppedWarn": "The Supervisor service is not running, so process status may be unavailable. Start it from the top-right menu.",
+  "@supervisor_serviceStoppedWarn": {
+    "description": "Supervisor stopped warning."
+  },
+  "supervisor_chooseWorkDir": "Choose Working Directory",
+  "@supervisor_chooseWorkDir": {
+    "description": "Supervisor working directory picker title."
+  },
+  "supervisor_requiredFields": "Fill in all required fields",
+  "@supervisor_requiredFields": {
+    "description": "Supervisor required fields warning."
+  },
+  "supervisor_nameRule": "Name supports letters, numbers, - and _, and cannot start with a special character",
+  "@supervisor_nameRule": {
+    "description": "Supervisor process name validation message."
+  },
+  "supervisor_numprocsRule": "Process count must be between 1 and 9999",
+  "@supervisor_numprocsRule": {
+    "description": "Supervisor numprocs validation message."
+  },
+  "supervisor_updateSuccess": "Updated",
+  "@supervisor_updateSuccess": {
+    "description": "Supervisor update success toast."
+  },
+  "supervisor_createSuccess": "Created",
+  "@supervisor_createSuccess": {
+    "description": "Supervisor create success toast."
+  },
+  "supervisor_saveFailed": "Save failed",
+  "@supervisor_saveFailed": {
+    "description": "Supervisor save failure toast."
+  },
+  "supervisor_createProcess": "Create Guarded Process",
+  "@supervisor_createProcess": {
+    "description": "Supervisor create process sheet title."
+  },
+  "supervisor_editProcess": "Edit Guarded Process",
+  "@supervisor_editProcess": {
+    "description": "Supervisor edit process sheet title."
+  },
+  "supervisor_name": "Name",
+  "@supervisor_name": {
+    "description": "Supervisor process name field label."
+  },
+  "supervisor_user": "Run User",
+  "@supervisor_user": {
+    "description": "Supervisor process user field label."
+  },
+  "supervisor_command": "Start Command",
+  "@supervisor_command": {
+    "description": "Supervisor command field label."
+  },
+  "supervisor_numprocs": "Process Count",
+  "@supervisor_numprocs": {
+    "description": "Supervisor numprocs field label."
+  },
+  "supervisor_environment": "Environment",
+  "@supervisor_environment": {
+    "description": "Supervisor environment field label."
+  },
+  "supervisor_autoRestart": "Auto Restart",
+  "@supervisor_autoRestart": {
+    "description": "Supervisor auto restart field label."
+  },
+  "supervisor_autoRestartSubtitle": "Supervisor restarts the process after an abnormal exit",
+  "@supervisor_autoRestartSubtitle": {
+    "description": "Supervisor auto restart subtitle."
+  },
+  "supervisor_autoStart": "Auto Start",
+  "@supervisor_autoStart": {
+    "description": "Supervisor auto start field label."
+  },
+  "supervisor_autoStartSubtitle": "Start this process automatically when Supervisor starts",
+  "@supervisor_autoStartSubtitle": {
+    "description": "Supervisor auto start subtitle."
+  },
+  "supervisor_configPathAndServiceRequired": "Enter the main config path and service name",
+  "@supervisor_configPathAndServiceRequired": {
+    "description": "Supervisor init required fields message."
+  },
+  "supervisor_initSuccess": "Initialized",
+  "@supervisor_initSuccess": {
+    "description": "Supervisor init success toast."
+  },
+  "supervisor_initFailed": "Initialization failed",
+  "@supervisor_initFailed": {
+    "description": "Supervisor init failure toast."
+  },
+  "supervisor_initTitle": "Initialize Supervisor",
+  "@supervisor_initTitle": {
+    "description": "Supervisor init sheet title."
+  },
+  "supervisor_initWarning": "Initialization modifies the [include] files parameter in the main config and restarts the matching systemd service.",
+  "@supervisor_initWarning": {
+    "description": "Supervisor init warning text."
+  },
+  "supervisor_primaryConfig": "Main Config File",
+  "@supervisor_primaryConfig": {
+    "description": "Supervisor primary config field label."
+  },
+  "supervisor_serviceName": "Service Name",
+  "@supervisor_serviceName": {
+    "description": "Supervisor service name field label."
+  },
+  "supervisor_clearLog": "Clear Log",
+  "@supervisor_clearLog": {
+    "description": "Supervisor clear log title."
+  },
+  "supervisor_clearLogConfirm": "Clear the current log file?",
+  "@supervisor_clearLogConfirm": {
+    "description": "Supervisor clear log confirmation."
+  },
+  "supervisor_logCleared": "Log cleared",
+  "@supervisor_logCleared": {
+    "description": "Supervisor log cleared toast."
+  },
+  "supervisor_clearFailed": "Clear failed",
+  "@supervisor_clearFailed": {
+    "description": "Supervisor clear log failure toast."
+  },
+  "supervisor_clear": "Clear",
+  "@supervisor_clear": {
+    "description": "Supervisor compact clear action label."
+  },
+  "supervisor_lineCount": "Lines",
+  "@supervisor_lineCount": {
+    "description": "Supervisor log line count control label."
+  },
+  "supervisor_follow": "Follow",
+  "@supervisor_follow": {
+    "description": "Supervisor log follow control label."
+  },
+  "supervisor_runLog": "Run Log",
+  "@supervisor_runLog": {
+    "description": "Supervisor stdout log tab."
+  },
+  "supervisor_errorLog": "Error Log",
+  "@supervisor_errorLog": {
+    "description": "Supervisor stderr log tab."
+  },
+  "supervisor_readLogFailed": "Failed to Read Logs",
+  "@supervisor_readLogFailed": {
+    "description": "Supervisor read log failure state title."
+  },
+  "supervisor_emptyLogTitle": "No Logs",
+  "@supervisor_emptyLogTitle": {
+    "description": "Supervisor empty log state title."
+  },
+  "supervisor_emptyLogSubtitle": "The log file is empty or has not been generated yet.",
+  "@supervisor_emptyLogSubtitle": {
+    "description": "Supervisor empty log state subtitle."
+  },
+  "supervisor_processCountShort": "{count} processes",
+  "@supervisor_processCountShort": {
+    "description": "Compact Supervisor process count label.",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "supervisor_moreChildren": "{count} more child processes",
+  "@supervisor_moreChildren": {
+    "description": "Supervisor extra child processes label.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "supervisor_statusStarting": "Starting",
+  "@supervisor_statusStarting": {
+    "description": "Supervisor starting aggregate status."
+  },
+  "supervisor_statusRunning": "Running",
+  "@supervisor_statusRunning": {
+    "description": "Supervisor running aggregate status."
+  },
+  "supervisor_statusWarning": "Partially Running",
+  "@supervisor_statusWarning": {
+    "description": "Supervisor partial running aggregate status."
+  },
+  "supervisor_statusStopped": "Stopped",
+  "@supervisor_statusStopped": {
+    "description": "Supervisor stopped aggregate status."
+  },
+  "supervisor_start": "Start",
+  "@supervisor_start": {
+    "description": "Supervisor start operation label."
+  },
+  "supervisor_stop": "Stop",
+  "@supervisor_stop": {
+    "description": "Supervisor stop operation label."
+  },
+  "supervisor_restart": "Restart",
+  "@supervisor_restart": {
+    "description": "Supervisor restart operation label."
   }
 }

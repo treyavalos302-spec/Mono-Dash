@@ -17,6 +17,7 @@ import '../../runtimes/screens/runtime_page.dart';
 import '../../firewall/screens/firewall_page.dart';
 import '../../process/screens/process_page.dart';
 import '../../ssh/screens/ssh_page.dart';
+import '../../supervisor/screens/supervisor_page.dart';
 
 class MorePage extends ConsumerWidget {
   const MorePage({super.key, required this.onOpenFilesPath});
@@ -76,6 +77,20 @@ class MorePage extends ConsumerWidget {
                       containerId: '',
                       command: '/bin/bash',
                       source: 'host',
+                    ),
+                  ),
+                  SubMenuRow(
+                    icon: TablerIcons.shield_cog,
+                    iconColor: CupertinoColors.systemTeal,
+                    title: l10n.supervisor_menuTitle,
+                    subtitle: l10n.supervisor_menuSubtitle,
+                    onTap: () => Navigator.of(context).push(
+                      CupertinoPageRoute<void>(
+                        builder: (_) => SupervisorPage(
+                          serverId: serverId,
+                          onOpenFilesPath: onOpenFilesPath,
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -20694,6 +20694,540 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remark'**
   String get databases_remarkInfo;
+
+  /// Supervisor feature page title.
+  ///
+  /// In en, this message translates to:
+  /// **'Process Guard'**
+  String get supervisor_title;
+
+  /// Supervisor feature menu title.
+  ///
+  /// In en, this message translates to:
+  /// **'Process Guard'**
+  String get supervisor_menuTitle;
+
+  /// Supervisor feature menu subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Supervisor services, process configs, and logs'**
+  String get supervisor_menuSubtitle;
+
+  /// Start Supervisor service menu item.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Supervisor'**
+  String get supervisor_serviceStart;
+
+  /// Stop Supervisor service menu item.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Supervisor'**
+  String get supervisor_serviceStop;
+
+  /// Restart Supervisor service menu item.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart Supervisor'**
+  String get supervisor_serviceRestart;
+
+  /// Initialize Supervisor menu item.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialize Supervisor'**
+  String get supervisor_initSupervisor;
+
+  /// Supervisor settings label.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get supervisor_settings;
+
+  /// Confirmation message for Supervisor service operation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm {operation} for the Supervisor service?'**
+  String supervisor_serviceOperateConfirm(String operation);
+
+  /// Confirmation message for Supervisor process operation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm {operation} for {name}?'**
+  String supervisor_processOperateConfirm(String operation, String name);
+
+  /// Supervisor operation success toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation succeeded'**
+  String get supervisor_operationSuccess;
+
+  /// Supervisor operation failure toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get supervisor_operationFailed;
+
+  /// Supervisor refresh failure toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh failed'**
+  String get supervisor_refreshFailed;
+
+  /// Supervisor not ready warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor is not ready'**
+  String get supervisor_notReady;
+
+  /// Subtitle for Supervisor process config editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor process configuration'**
+  String get supervisor_processConfigSubtitle;
+
+  /// Supervisor main config title.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor Main Config'**
+  String get supervisor_mainConfig;
+
+  /// Supervisor main log title.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor Main Log'**
+  String get supervisor_mainLog;
+
+  /// Supervisor main config source action.
+  ///
+  /// In en, this message translates to:
+  /// **'Main Config Source'**
+  String get supervisor_configSource;
+
+  /// Supervisor main config source subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read and save the supervisord main config'**
+  String get supervisor_configSourceSubtitle;
+
+  /// Supervisor main log subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the supervisord logfile by line'**
+  String get supervisor_mainLogSubtitle;
+
+  /// Supervisor base init action.
+  ///
+  /// In en, this message translates to:
+  /// **'Base / Reinitialize'**
+  String get supervisor_baseInit;
+
+  /// Supervisor base init action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Main config path and systemctl service name'**
+  String get supervisor_baseInitSubtitle;
+
+  /// Supervisor process start action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start this process group'**
+  String get supervisor_processStartSubtitle;
+
+  /// Supervisor process stop action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop this process group'**
+  String get supervisor_processStopSubtitle;
+
+  /// Supervisor process restart action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart this process group'**
+  String get supervisor_processRestartSubtitle;
+
+  /// Supervisor action section title.
+  ///
+  /// In en, this message translates to:
+  /// **'Config & Logs'**
+  String get supervisor_configAndLogs;
+
+  /// Supervisor edit action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change command, directory, user, and startup policy'**
+  String get supervisor_editSubtitle;
+
+  /// Supervisor source file action.
+  ///
+  /// In en, this message translates to:
+  /// **'Source File'**
+  String get supervisor_sourceFile;
+
+  /// Supervisor source file action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View or edit this process ini snippet'**
+  String get supervisor_sourceFileSubtitle;
+
+  /// Supervisor stdout log action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View the standard output log'**
+  String get supervisor_runLogSubtitle;
+
+  /// Supervisor stderr log action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View the standard error log'**
+  String get supervisor_errorLogSubtitle;
+
+  /// Supervisor working directory label.
+  ///
+  /// In en, this message translates to:
+  /// **'Working Directory'**
+  String get supervisor_workDir;
+
+  /// Supervisor danger section title.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger Zone'**
+  String get supervisor_dangerZone;
+
+  /// Supervisor delete action subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this process config and update Supervisor'**
+  String get supervisor_deleteSubtitle;
+
+  /// Supervisor missing state title.
+  ///
+  /// In en, this message translates to:
+  /// **'supervisord Not Detected'**
+  String get supervisor_notInstalledTitle;
+
+  /// Supervisor missing state subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Install Supervisor on the server first and make sure the systemd service exists.'**
+  String get supervisor_notInstalledSubtitle;
+
+  /// Supervisor ctl missing state title.
+  ///
+  /// In en, this message translates to:
+  /// **'supervisorctl Not Detected'**
+  String get supervisor_ctlMissingTitle;
+
+  /// Supervisor ctl missing state subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The process list and process operations depend on supervisorctl.'**
+  String get supervisor_ctlMissingSubtitle;
+
+  /// Supervisor initialization required state title.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialization Required'**
+  String get supervisor_needInitTitle;
+
+  /// Supervisor initialization required state subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialization rewrites the [include] files parameter in the main config and restarts the Supervisor service.'**
+  String get supervisor_needInitSubtitle;
+
+  /// Supervisor empty state title.
+  ///
+  /// In en, this message translates to:
+  /// **'No Guarded Processes'**
+  String get supervisor_emptyTitle;
+
+  /// Supervisor empty state subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'After creating a process, the corresponding ini config and stdout/stderr log paths are generated.'**
+  String get supervisor_emptySubtitle;
+
+  /// Supervisor stopped warning.
+  ///
+  /// In en, this message translates to:
+  /// **'The Supervisor service is not running, so process status may be unavailable. Start it from the top-right menu.'**
+  String get supervisor_serviceStoppedWarn;
+
+  /// Supervisor working directory picker title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Working Directory'**
+  String get supervisor_chooseWorkDir;
+
+  /// Supervisor required fields warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in all required fields'**
+  String get supervisor_requiredFields;
+
+  /// Supervisor process name validation message.
+  ///
+  /// In en, this message translates to:
+  /// **'Name supports letters, numbers, - and _, and cannot start with a special character'**
+  String get supervisor_nameRule;
+
+  /// Supervisor numprocs validation message.
+  ///
+  /// In en, this message translates to:
+  /// **'Process count must be between 1 and 9999'**
+  String get supervisor_numprocsRule;
+
+  /// Supervisor update success toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get supervisor_updateSuccess;
+
+  /// Supervisor create success toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get supervisor_createSuccess;
+
+  /// Supervisor save failure toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Save failed'**
+  String get supervisor_saveFailed;
+
+  /// Supervisor create process sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Guarded Process'**
+  String get supervisor_createProcess;
+
+  /// Supervisor edit process sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Guarded Process'**
+  String get supervisor_editProcess;
+
+  /// Supervisor process name field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get supervisor_name;
+
+  /// Supervisor process user field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Run User'**
+  String get supervisor_user;
+
+  /// Supervisor command field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Command'**
+  String get supervisor_command;
+
+  /// Supervisor numprocs field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Process Count'**
+  String get supervisor_numprocs;
+
+  /// Supervisor environment field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment'**
+  String get supervisor_environment;
+
+  /// Supervisor auto restart field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Restart'**
+  String get supervisor_autoRestart;
+
+  /// Supervisor auto restart subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor restarts the process after an abnormal exit'**
+  String get supervisor_autoRestartSubtitle;
+
+  /// Supervisor auto start field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Start'**
+  String get supervisor_autoStart;
+
+  /// Supervisor auto start subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start this process automatically when Supervisor starts'**
+  String get supervisor_autoStartSubtitle;
+
+  /// Supervisor init required fields message.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the main config path and service name'**
+  String get supervisor_configPathAndServiceRequired;
+
+  /// Supervisor init success toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialized'**
+  String get supervisor_initSuccess;
+
+  /// Supervisor init failure toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialization failed'**
+  String get supervisor_initFailed;
+
+  /// Supervisor init sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialize Supervisor'**
+  String get supervisor_initTitle;
+
+  /// Supervisor init warning text.
+  ///
+  /// In en, this message translates to:
+  /// **'Initialization modifies the [include] files parameter in the main config and restarts the matching systemd service.'**
+  String get supervisor_initWarning;
+
+  /// Supervisor primary config field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Main Config File'**
+  String get supervisor_primaryConfig;
+
+  /// Supervisor service name field label.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Name'**
+  String get supervisor_serviceName;
+
+  /// Supervisor clear log title.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Log'**
+  String get supervisor_clearLog;
+
+  /// Supervisor clear log confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear the current log file?'**
+  String get supervisor_clearLogConfirm;
+
+  /// Supervisor log cleared toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Log cleared'**
+  String get supervisor_logCleared;
+
+  /// Supervisor clear log failure toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear failed'**
+  String get supervisor_clearFailed;
+
+  /// Supervisor compact clear action label.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get supervisor_clear;
+
+  /// Supervisor log line count control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Lines'**
+  String get supervisor_lineCount;
+
+  /// Supervisor log follow control label.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow'**
+  String get supervisor_follow;
+
+  /// Supervisor stdout log tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Run Log'**
+  String get supervisor_runLog;
+
+  /// Supervisor stderr log tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Error Log'**
+  String get supervisor_errorLog;
+
+  /// Supervisor read log failure state title.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Read Logs'**
+  String get supervisor_readLogFailed;
+
+  /// Supervisor empty log state title.
+  ///
+  /// In en, this message translates to:
+  /// **'No Logs'**
+  String get supervisor_emptyLogTitle;
+
+  /// Supervisor empty log state subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The log file is empty or has not been generated yet.'**
+  String get supervisor_emptyLogSubtitle;
+
+  /// Compact Supervisor process count label.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} processes'**
+  String supervisor_processCountShort(String count);
+
+  /// Supervisor extra child processes label.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} more child processes'**
+  String supervisor_moreChildren(int count);
+
+  /// Supervisor starting aggregate status.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting'**
+  String get supervisor_statusStarting;
+
+  /// Supervisor running aggregate status.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get supervisor_statusRunning;
+
+  /// Supervisor partial running aggregate status.
+  ///
+  /// In en, this message translates to:
+  /// **'Partially Running'**
+  String get supervisor_statusWarning;
+
+  /// Supervisor stopped aggregate status.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get supervisor_statusStopped;
+
+  /// Supervisor start operation label.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get supervisor_start;
+
+  /// Supervisor stop operation label.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get supervisor_stop;
+
+  /// Supervisor restart operation label.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get supervisor_restart;
 }
 
 class _AppLocalizationsDelegate

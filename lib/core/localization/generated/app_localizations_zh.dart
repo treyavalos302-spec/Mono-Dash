@@ -10905,4 +10905,284 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get databases_remarkInfo => '备注信息';
+
+  @override
+  String get supervisor_title => '进程守护';
+
+  @override
+  String get supervisor_menuTitle => '进程守护';
+
+  @override
+  String get supervisor_menuSubtitle => '管理 Supervisor 服务、守护进程配置与日志';
+
+  @override
+  String get supervisor_serviceStart => '启动 Supervisor';
+
+  @override
+  String get supervisor_serviceStop => '停止 Supervisor';
+
+  @override
+  String get supervisor_serviceRestart => '重启 Supervisor';
+
+  @override
+  String get supervisor_initSupervisor => '初始化 Supervisor';
+
+  @override
+  String get supervisor_settings => '设置';
+
+  @override
+  String supervisor_serviceOperateConfirm(String operation) {
+    return '确认对 Supervisor 服务执行“$operation”？';
+  }
+
+  @override
+  String supervisor_processOperateConfirm(String operation, String name) {
+    return '确认对 $name 执行“$operation”？';
+  }
+
+  @override
+  String get supervisor_operationSuccess => '操作成功';
+
+  @override
+  String get supervisor_operationFailed => '操作失败';
+
+  @override
+  String get supervisor_refreshFailed => '刷新失败';
+
+  @override
+  String get supervisor_notReady => 'Supervisor 尚未就绪';
+
+  @override
+  String get supervisor_processConfigSubtitle => 'Supervisor 进程配置';
+
+  @override
+  String get supervisor_mainConfig => 'Supervisor 主配置';
+
+  @override
+  String get supervisor_mainLog => 'Supervisor 主日志';
+
+  @override
+  String get supervisor_configSource => '主配置源码';
+
+  @override
+  String get supervisor_configSourceSubtitle => '读取并保存 supervisord 主配置';
+
+  @override
+  String get supervisor_mainLogSubtitle => '按行读取 supervisord logfile';
+
+  @override
+  String get supervisor_baseInit => '基础 / 重新初始化';
+
+  @override
+  String get supervisor_baseInitSubtitle => '主配置路径与 systemctl 服务名';
+
+  @override
+  String get supervisor_processStartSubtitle => '启动该进程组';
+
+  @override
+  String get supervisor_processStopSubtitle => '停止该进程组';
+
+  @override
+  String get supervisor_processRestartSubtitle => '重新启动该进程组';
+
+  @override
+  String get supervisor_configAndLogs => '配置与日志';
+
+  @override
+  String get supervisor_editSubtitle => '修改命令、目录、用户和启动策略';
+
+  @override
+  String get supervisor_sourceFile => '源文件';
+
+  @override
+  String get supervisor_sourceFileSubtitle => '查看或修改该进程的 ini 片段';
+
+  @override
+  String get supervisor_runLogSubtitle => '查看标准输出日志';
+
+  @override
+  String get supervisor_errorLogSubtitle => '查看标准错误日志';
+
+  @override
+  String get supervisor_workDir => '工作目录';
+
+  @override
+  String get supervisor_dangerZone => '危险操作';
+
+  @override
+  String get supervisor_deleteSubtitle => '删除该进程配置并更新 Supervisor';
+
+  @override
+  String get supervisor_notInstalledTitle => '未检测到 supervisord';
+
+  @override
+  String get supervisor_notInstalledSubtitle =>
+      '请先在服务器上安装 Supervisor，并确认 systemd 服务存在。';
+
+  @override
+  String get supervisor_ctlMissingTitle => '未检测到 supervisorctl';
+
+  @override
+  String get supervisor_ctlMissingSubtitle => '进程列表和进程操作依赖 supervisorctl。';
+
+  @override
+  String get supervisor_needInitTitle => '需要初始化';
+
+  @override
+  String get supervisor_needInitSubtitle =>
+      '初始化会改写主配置 [include] 的 files 参数，并重启 Supervisor 服务。';
+
+  @override
+  String get supervisor_emptyTitle => '暂无守护进程';
+
+  @override
+  String get supervisor_emptySubtitle =>
+      '创建进程后会生成对应的 ini 配置和 stdout/stderr 日志路径。';
+
+  @override
+  String get supervisor_serviceStoppedWarn =>
+      'Supervisor 服务未启动，进程状态可能不可用。可在右上角菜单中启动服务。';
+
+  @override
+  String get supervisor_chooseWorkDir => '选择工作目录';
+
+  @override
+  String get supervisor_requiredFields => '请填写必填项';
+
+  @override
+  String get supervisor_nameRule => '名称支持英文、数字、- 和 _，且不能以特殊字符开头';
+
+  @override
+  String get supervisor_numprocsRule => '进程数需要在 1 到 9999 之间';
+
+  @override
+  String get supervisor_updateSuccess => '更新成功';
+
+  @override
+  String get supervisor_createSuccess => '创建成功';
+
+  @override
+  String get supervisor_saveFailed => '保存失败';
+
+  @override
+  String get supervisor_createProcess => '创建守护进程';
+
+  @override
+  String get supervisor_editProcess => '编辑守护进程';
+
+  @override
+  String get supervisor_name => '名称';
+
+  @override
+  String get supervisor_user => '执行用户';
+
+  @override
+  String get supervisor_command => '启动命令';
+
+  @override
+  String get supervisor_numprocs => '进程数';
+
+  @override
+  String get supervisor_environment => '环境变量';
+
+  @override
+  String get supervisor_autoRestart => '自动重启';
+
+  @override
+  String get supervisor_autoRestartSubtitle => '进程异常退出后由 Supervisor 自动拉起';
+
+  @override
+  String get supervisor_autoStart => '自动启动';
+
+  @override
+  String get supervisor_autoStartSubtitle => 'Supervisor 启动后自动启动该进程';
+
+  @override
+  String get supervisor_configPathAndServiceRequired => '请填写主配置路径和服务名';
+
+  @override
+  String get supervisor_initSuccess => '初始化成功';
+
+  @override
+  String get supervisor_initFailed => '初始化失败';
+
+  @override
+  String get supervisor_initTitle => '初始化 Supervisor';
+
+  @override
+  String get supervisor_initWarning =>
+      '初始化会修改主配置文件 [include] 的 files 参数，并重启对应 systemd 服务。';
+
+  @override
+  String get supervisor_primaryConfig => '主配置文件';
+
+  @override
+  String get supervisor_serviceName => '服务名称';
+
+  @override
+  String get supervisor_clearLog => '清空日志';
+
+  @override
+  String get supervisor_clearLogConfirm => '确认清空当前日志文件？';
+
+  @override
+  String get supervisor_logCleared => '日志已清空';
+
+  @override
+  String get supervisor_clearFailed => '清空失败';
+
+  @override
+  String get supervisor_clear => '清空';
+
+  @override
+  String get supervisor_lineCount => '条数';
+
+  @override
+  String get supervisor_follow => '追踪';
+
+  @override
+  String get supervisor_runLog => '运行日志';
+
+  @override
+  String get supervisor_errorLog => '错误日志';
+
+  @override
+  String get supervisor_readLogFailed => '读取日志失败';
+
+  @override
+  String get supervisor_emptyLogTitle => '暂无日志';
+
+  @override
+  String get supervisor_emptyLogSubtitle => '日志文件为空或尚未生成。';
+
+  @override
+  String supervisor_processCountShort(String count) {
+    return '$count 个进程';
+  }
+
+  @override
+  String supervisor_moreChildren(int count) {
+    return '还有 $count 个子进程';
+  }
+
+  @override
+  String get supervisor_statusStarting => '启动中';
+
+  @override
+  String get supervisor_statusRunning => '运行中';
+
+  @override
+  String get supervisor_statusWarning => '部分运行';
+
+  @override
+  String get supervisor_statusStopped => '已停止';
+
+  @override
+  String get supervisor_start => '启动';
+
+  @override
+  String get supervisor_stop => '停止';
+
+  @override
+  String get supervisor_restart => '重启';
 }
