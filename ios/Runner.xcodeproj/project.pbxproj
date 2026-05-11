@@ -23,6 +23,10 @@
 		B972D53AEF707CB630677405 /* ServerStatusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68CCB9A544FE1CC82DC1E5 /* ServerStatusWidget.swift */; };
 		4F1A00100000000000000001 /* ServerStatusWidgetSimpleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A00110000000000000001 /* ServerStatusWidgetSimpleStyle.swift */; };
 		4F1A00200000000000000001 /* ServerStatusWidgetHorizontalMetricsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A00210000000000000001 /* ServerStatusWidgetHorizontalMetricsStyle.swift */; };
+		4F1A00300000000000000001 /* TransferActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A00320000000000000001 /* TransferActivityAttributes.swift */; };
+		4F1A00310000000000000001 /* TransferActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A00320000000000000001 /* TransferActivityAttributes.swift */; };
+		4F1A00400000000000000001 /* FileTransferLiveActivityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A00410000000000000001 /* FileTransferLiveActivityBridge.swift */; };
+		4F1A00500000000000000001 /* FileTransferActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1A00510000000000000001 /* FileTransferActivityWidget.swift */; };
 		D0DA84AA339E4F864212C4BB /* ServerStatusWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 352EADBB0169464A7E886190 /* ServerStatusWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E8D269946616938DA21FB4B8 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C0E8586D0DF805F22613C8 /* Pods_RunnerTests.framework */; };
 		FCF507B5AFD7E4E3D4CF144E /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63492E89C6129C6799A17A6D /* Pods_Runner.framework */; };
@@ -81,6 +85,9 @@
 		3D68CCB9A544FE1CC82DC1E5 /* ServerStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStatusWidget.swift; sourceTree = "<group>"; };
 		4F1A00110000000000000001 /* ServerStatusWidgetSimpleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStatusWidgetSimpleStyle.swift; sourceTree = "<group>"; };
 		4F1A00210000000000000001 /* ServerStatusWidgetHorizontalMetricsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStatusWidgetHorizontalMetricsStyle.swift; sourceTree = "<group>"; };
+		4F1A00320000000000000001 /* TransferActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferActivityAttributes.swift; sourceTree = "<group>"; };
+		4F1A00410000000000000001 /* FileTransferLiveActivityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTransferLiveActivityBridge.swift; sourceTree = "<group>"; };
+		4F1A00510000000000000001 /* FileTransferActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTransferActivityWidget.swift; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		50C0E8586D0DF805F22613C8 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63492E89C6129C6799A17A6D /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +201,8 @@
 				7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */,
 				774A061C2BAA4FCABF521572 /* LocalNetworkAuthorization.swift */,
 				B962BA402BED2826972C65D5 /* ServerWidgetBridge.swift */,
+				4F1A00320000000000000001 /* TransferActivityAttributes.swift */,
+				4F1A00410000000000000001 /* FileTransferLiveActivityBridge.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
@@ -205,6 +214,7 @@
 				3D68CCB9A544FE1CC82DC1E5 /* ServerStatusWidget.swift */,
 				4F1A00110000000000000001 /* ServerStatusWidgetSimpleStyle.swift */,
 				4F1A00210000000000000001 /* ServerStatusWidgetHorizontalMetricsStyle.swift */,
+				4F1A00510000000000000001 /* FileTransferActivityWidget.swift */,
 				A4E7AC901A5D4F3E80D9B75C /* Assets.xcassets */,
 				A4E7AC945D2F4E199F079B2C /* Localizable.strings */,
 				0BE82F6D07A1D346A9361270 /* Info.plist */,
@@ -486,6 +496,8 @@
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
 				8E71663D89F4461AB35185A8 /* LocalNetworkAuthorization.swift in Sources */,
 				329229A378D64CAC8F957392 /* ServerWidgetBridge.swift in Sources */,
+				4F1A00300000000000000001 /* TransferActivityAttributes.swift in Sources */,
+				4F1A00400000000000000001 /* FileTransferLiveActivityBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +508,8 @@
 				B972D53AEF707CB630677405 /* ServerStatusWidget.swift in Sources */,
 				4F1A00100000000000000001 /* ServerStatusWidgetSimpleStyle.swift in Sources */,
 				4F1A00200000000000000001 /* ServerStatusWidgetHorizontalMetricsStyle.swift in Sources */,
+				4F1A00310000000000000001 /* TransferActivityAttributes.swift in Sources */,
+				4F1A00500000000000000001 /* FileTransferActivityWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

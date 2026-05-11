@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -11,6 +12,7 @@ import 'package:uuid/uuid.dart';
 import '../../../../core/localization/locale_controller.dart';
 import '../../../../core/network/dio_client_provider.dart';
 import '../../../../core/storage/storage_service.dart';
+import '../../../../core/widgets/file_transfer_live_activity_service.dart';
 import '../../../../data/api/file_api.dart';
 import '../../../../data/repositories_impl/file_repository_impl.dart';
 import '../../../../domain/repositories/file_repository.dart';
@@ -19,6 +21,7 @@ import '../models/download_task.dart';
 part 'download_manager_provider.g.dart';
 
 const _uuid = Uuid();
+const _liveActivityUpdateInterval = Duration(seconds: 1);
 
 @Riverpod(keepAlive: true, dependencies: [appLocalizations])
 class DownloadManager extends _$DownloadManager {
@@ -118,6 +121,7 @@ class DownloadManager extends _$DownloadManager {
     if (task == null || task.isDone) return;
     task.cancelToken?.cancel('user cancelled');
     task.status = DownloadStatus.cancelled;
+    _endLiveActivity(task, FileTransferLiveActivityStatus.cancelled);
     state = [...state];
     _persistToDisk();
   }
@@ -144,7 +148,10 @@ class DownloadManager extends _$DownloadManager {
     final task = _findTask(taskId);
     if (task == null) return;
 
-    if (!task.isDone) task.cancelToken?.cancel('deleted');
+    if (!task.isDone) {
+      task.cancelToken?.cancel('deleted');
+      _endLiveActivity(task, FileTransferLiveActivityStatus.cancelled);
+    }
 
     try {
       final file = File(task.localPath);
@@ -200,6 +207,7 @@ class DownloadManager extends _$DownloadManager {
     for (final task in serverTasks) {
       if (!task.isDone) {
         task.cancelToken?.cancel('deleted all');
+        _endLiveActivity(task, FileTransferLiveActivityStatus.cancelled);
       }
       try {
         final file = File(task.localPath);
@@ -228,6 +236,7 @@ class DownloadManager extends _$DownloadManager {
 
   Future<void> _executeDownload(DownloadTask task) async {
     if (task.status == DownloadStatus.packaging) {
+      await _startLiveActivity(task, FileTransferLiveActivityStatus.preparing);
       try {
         final FileRepository repo = await _getRepository(task.serverId);
         bool exists = false;
@@ -252,11 +261,18 @@ class DownloadManager extends _$DownloadManager {
         task.fileSize = await repo.getFileSize(task.remotePath);
         task.status = DownloadStatus.downloading;
         task.lastReceived = 0;
+        task.receivedBytes = 0;
         task.lastSpeedTime = DateTime.now();
         state = [...state];
+        _updateLiveActivity(
+          task,
+          status: FileTransferLiveActivityStatus.running,
+          force: true,
+        );
       } catch (e) {
         task.status = DownloadStatus.failed;
         task.errorMessage = e.toString();
+        _endLiveActivity(task, FileTransferLiveActivityStatus.failed);
         state = [...state];
         _persistToDisk();
         return;
@@ -264,8 +280,10 @@ class DownloadManager extends _$DownloadManager {
     } else {
       task.status = DownloadStatus.downloading;
       task.lastReceived = 0;
+      task.receivedBytes = 0;
       task.lastSpeedTime = DateTime.now();
       state = [...state];
+      await _startLiveActivity(task, FileTransferLiveActivityStatus.running);
     }
 
     try {
@@ -277,6 +295,10 @@ class DownloadManager extends _$DownloadManager {
         onReceiveProgress: (received, total) {
           final now = DateTime.now();
           final elapsed = now.difference(task.lastSpeedTime).inMilliseconds;
+          task.receivedBytes = received;
+          if (total > 0 && task.fileSize <= 0) {
+            task.fileSize = total;
+          }
 
           if (elapsed >= 500) {
             final diff = received - task.lastReceived;
@@ -286,6 +308,7 @@ class DownloadManager extends _$DownloadManager {
           }
 
           task.progress = total > 0 ? (received / total).clamp(0.0, 1.0) : 0.0;
+          _updateLiveActivity(task);
           state = [...state];
         },
       );
@@ -293,17 +316,22 @@ class DownloadManager extends _$DownloadManager {
       task.status = DownloadStatus.completed;
       task.progress = 1.0;
       task.speed = 0.0;
+      task.receivedBytes = task.fileSize;
+      _endLiveActivity(task, FileTransferLiveActivityStatus.completed);
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
         task.status = DownloadStatus.cancelled;
+        _endLiveActivity(task, FileTransferLiveActivityStatus.cancelled);
       } else {
         task.status = DownloadStatus.failed;
         task.errorMessage =
             e.message ?? ref.read(appLocalizationsProvider).download_failed;
+        _endLiveActivity(task, FileTransferLiveActivityStatus.failed);
       }
     } catch (e) {
       task.status = DownloadStatus.failed;
       task.errorMessage = e.toString();
+      _endLiveActivity(task, FileTransferLiveActivityStatus.failed);
     } finally {
       // 如果是临时文件（打包产生的），下载完成后尝试删除服务器端的临时文件
       if (task.deleteRemoteAfterDownload) {
@@ -320,6 +348,68 @@ class DownloadManager extends _$DownloadManager {
 
     state = [...state];
     _persistToDisk();
+  }
+
+  Future<void> _startLiveActivity(
+    DownloadTask task,
+    FileTransferLiveActivityStatus status,
+  ) async {
+    task.lastLiveActivityUpdate = DateTime.now();
+    await FileTransferLiveActivityService.start(
+      id: task.id,
+      direction: FileTransferLiveActivityDirection.download,
+      fileName: task.fileName,
+      totalBytes: task.fileSize,
+      transferredBytes: task.receivedBytes,
+      progress: task.progress,
+      speedBytesPerSecond: task.speed,
+      status: status,
+    );
+  }
+
+  void _updateLiveActivity(
+    DownloadTask task, {
+    FileTransferLiveActivityStatus status =
+        FileTransferLiveActivityStatus.running,
+    bool force = false,
+  }) {
+    final now = DateTime.now();
+    if (!force &&
+        now.difference(task.lastLiveActivityUpdate) <
+            _liveActivityUpdateInterval) {
+      return;
+    }
+    task.lastLiveActivityUpdate = now;
+
+    unawaited(
+      FileTransferLiveActivityService.update(
+        id: task.id,
+        totalBytes: task.fileSize,
+        transferredBytes: task.receivedBytes,
+        progress: task.progress,
+        speedBytesPerSecond: task.speed,
+        status: status,
+      ),
+    );
+  }
+
+  void _endLiveActivity(
+    DownloadTask task,
+    FileTransferLiveActivityStatus status,
+  ) {
+    unawaited(
+      FileTransferLiveActivityService.end(
+        id: task.id,
+        totalBytes: task.fileSize,
+        transferredBytes: status == FileTransferLiveActivityStatus.completed
+            ? task.fileSize
+            : task.receivedBytes,
+        progress: status == FileTransferLiveActivityStatus.completed
+            ? 1.0
+            : task.progress,
+        status: status,
+      ),
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -357,14 +447,19 @@ class DownloadManager extends _$DownloadManager {
           .toList();
 
       // 恢复后，正在下载的任务标记为失败（App 重启后连接已断）
+      var hasInterruptedTask = false;
       for (final t in tasks) {
         if (t.status == DownloadStatus.downloading ||
             t.status == DownloadStatus.pending) {
+          hasInterruptedTask = true;
           t.status = DownloadStatus.failed;
           t.errorMessage = ref
               .read(appLocalizationsProvider)
               .download_interrupted;
         }
+      }
+      if (hasInterruptedTask) {
+        unawaited(FileTransferLiveActivityService.endAll());
       }
 
       state = tasks;

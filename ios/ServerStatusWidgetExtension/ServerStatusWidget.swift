@@ -1406,5 +1406,8 @@ struct ServerStatusWidgetBundle: WidgetBundle {
   var body: some Widget {
     ServerStatusWidget()
     ServerStatusHorizontalMetricsWidget()
+    if #available(iOSApplicationExtension 16.1, *) {
+      FileTransferActivityWidget()
+    }
   }
 }

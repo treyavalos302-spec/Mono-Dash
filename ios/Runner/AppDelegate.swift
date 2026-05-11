@@ -13,9 +13,12 @@ import UIKit
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
-    guard let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ServerWidgetBridge") else {
-      return
+    if let widgetRegistrar = engineBridge.pluginRegistry.registrar(forPlugin: "ServerWidgetBridge") {
+      ServerWidgetBridge.register(with: widgetRegistrar)
     }
-    ServerWidgetBridge.register(with: registrar)
+
+    if let transferRegistrar = engineBridge.pluginRegistry.registrar(forPlugin: "FileTransferLiveActivityBridge") {
+      FileTransferLiveActivityBridge.register(with: transferRegistrar)
+    }
   }
 }

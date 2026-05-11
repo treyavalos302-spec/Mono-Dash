@@ -39,3 +39,11 @@
 "widget.display.description.simple" = "简洁服务器状态卡片。";
 "widget.display.name.horizontal_metrics" = "Mono Dash 指标";
 "widget.display.description.horizontal_metrics" = "横排展示 CPU、内存和磁盘指标的服务器状态卡片。";
+"transfer.activity.uploading" = "正在上传";
+"transfer.activity.downloading" = "正在下载";
+"transfer.activity.preparing" = "准备中";
+"transfer.activity.running" = "进行中";
+"transfer.activity.completed" = "已完成";
+"transfer.activity.failed" = "失败";
+"transfer.activity.cancelled" = "已取消";
+"transfer.activity.per_second" = "/秒";

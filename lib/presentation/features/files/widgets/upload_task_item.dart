@@ -10,11 +10,14 @@ enum UploadStatus { pending, uploading, success, failed, cancelled }
 
 class UploadTask {
   UploadTask({required this.filePath, required this.fileSize})
-      : fileName = filePath.split('/').last,
-        cancelToken = CancelToken();
+    : fileName = filePath.split('/').last,
+      liveActivityId =
+          'upload_${DateTime.now().microsecondsSinceEpoch}_${filePath.hashCode}',
+      cancelToken = CancelToken();
 
   final String filePath;
   final String fileName;
+  final String liveActivityId;
   final int fileSize;
   final CancelToken cancelToken;
 
@@ -23,6 +26,7 @@ class UploadTask {
   double speed = 0.0; // 字节/秒
   int lastSent = 0;
   DateTime lastTime = DateTime.now();
+  DateTime lastLiveActivityUpdate = DateTime.fromMillisecondsSinceEpoch(0);
   String? errorMessage;
 
   bool get isDone =>
@@ -94,14 +98,14 @@ class _UploadTaskItemState extends State<UploadTaskItem> {
           children: [
             Positioned.fill(
               child: Container(
-                color: AppColors.secondaryBackground(context)
-                    .withValues(alpha: 0.5),
+                color: AppColors.secondaryBackground(
+                  context,
+                ).withValues(alpha: 0.5),
               ),
             ),
             Positioned.fill(
               child: AnimatedOpacity(
-                opacity:
-                    _showWave && (isUploading || isSuccess) ? 1.0 : 0.0,
+                opacity: _showWave && (isUploading || isSuccess) ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 500),
                 child: WaveProgressLayer(
                   progress: progress,

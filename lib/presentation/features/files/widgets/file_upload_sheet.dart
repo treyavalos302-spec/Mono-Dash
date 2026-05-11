@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import '../../../../core/localization/l10n_x.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/format_utils.dart';
+import '../../../../core/widgets/file_transfer_live_activity_service.dart';
 import '../../../../data/repositories_impl/file_repository_impl.dart';
 import '../../../common/components/action_sheet_launcher.dart';
 import '../../../common/components/action_sheet_scaffold.dart';
@@ -15,6 +18,8 @@ import '../../../common/components/frosted_overlay_menu.dart';
 import '../../../common/components/overlay_menu_mixin.dart';
 import '../providers/files_provider.dart';
 import 'upload_task_item.dart';
+
+const _liveActivityUpdateInterval = Duration(seconds: 1);
 
 Future<bool> showFileUploadSheet(
   BuildContext context,
@@ -66,7 +71,10 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
   @override
   void dispose() {
     for (final task in _tasks) {
-      if (!task.isDone) task.cancelToken.cancel('sheet closed');
+      if (!task.isDone) {
+        task.cancelToken.cancel('sheet closed');
+        _endLiveActivity(task, FileTransferLiveActivityStatus.cancelled);
+      }
     }
     super.dispose();
   }
@@ -118,6 +126,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
         task.status = UploadStatus.uploading;
         task.progress = 0.0;
       });
+      await _startLiveActivity(task);
 
       try {
         await repo.uploadFile(
@@ -138,6 +147,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
               }
 
               setState(() => task.progress = p);
+              _updateLiveActivity(task);
             }
           },
           cancelToken: task.cancelToken,
@@ -148,6 +158,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
             task.progress = 1.0;
             _didUploadAny = true;
           });
+          _endLiveActivity(task, FileTransferLiveActivityStatus.completed);
         }
       } on DioException catch (e) {
         if (mounted) {
@@ -157,6 +168,12 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
                 : UploadStatus.failed;
             task.errorMessage = e.message;
           });
+          _endLiveActivity(
+            task,
+            e.type == DioExceptionType.cancel
+                ? FileTransferLiveActivityStatus.cancelled
+                : FileTransferLiveActivityStatus.failed,
+          );
         }
       } catch (e) {
         if (mounted) {
@@ -164,6 +181,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
             task.status = UploadStatus.failed;
             task.errorMessage = e.toString();
           });
+          _endLiveActivity(task, FileTransferLiveActivityStatus.failed);
         }
       }
     }
@@ -174,6 +192,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
   void _cancelTask(UploadTask task) {
     task.cancelToken.cancel('user cancelled');
     setState(() => task.status = UploadStatus.cancelled);
+    _endLiveActivity(task, FileTransferLiveActivityStatus.cancelled);
   }
 
   void _retryTask(UploadTask task) {
@@ -184,6 +203,59 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
     final index = _tasks.indexOf(task);
     setState(() => _tasks[index] = newTask);
     _startUpload([newTask]);
+  }
+
+  Future<void> _startLiveActivity(UploadTask task) async {
+    task.lastLiveActivityUpdate = DateTime.now();
+    await FileTransferLiveActivityService.start(
+      id: task.liveActivityId,
+      direction: FileTransferLiveActivityDirection.upload,
+      fileName: task.fileName,
+      totalBytes: task.fileSize,
+      transferredBytes: 0,
+      progress: task.progress,
+      speedBytesPerSecond: task.speed,
+    );
+  }
+
+  void _updateLiveActivity(UploadTask task, {bool force = false}) {
+    final now = DateTime.now();
+    if (!force &&
+        now.difference(task.lastLiveActivityUpdate) <
+            _liveActivityUpdateInterval) {
+      return;
+    }
+    task.lastLiveActivityUpdate = now;
+
+    unawaited(
+      FileTransferLiveActivityService.update(
+        id: task.liveActivityId,
+        totalBytes: task.fileSize,
+        transferredBytes: (task.progress * task.fileSize).round(),
+        progress: task.progress,
+        speedBytesPerSecond: task.speed,
+        status: FileTransferLiveActivityStatus.running,
+      ),
+    );
+  }
+
+  void _endLiveActivity(
+    UploadTask task,
+    FileTransferLiveActivityStatus status,
+  ) {
+    unawaited(
+      FileTransferLiveActivityService.end(
+        id: task.liveActivityId,
+        totalBytes: task.fileSize,
+        transferredBytes: status == FileTransferLiveActivityStatus.completed
+            ? task.fileSize
+            : (task.progress * task.fileSize).round(),
+        progress: status == FileTransferLiveActivityStatus.completed
+            ? 1.0
+            : task.progress,
+        status: status,
+      ),
+    );
   }
 
   // 记录哪些任务正处于点击一次后的"待确认删除"状态
@@ -325,7 +397,7 @@ class _FileUploadSheetState extends ConsumerState<FileUploadSheet>
         behavior: HitTestBehavior.translucent,
         onTap: () {
           if (_confirmingTasks.isNotEmpty) {
-            setState(() => _confirmingTasks.clear());
+            setState(_confirmingTasks.clear);
           }
         },
         child: Column(

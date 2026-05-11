@@ -42,6 +42,8 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select photos or files from your library to upload to a 1Panel panel.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

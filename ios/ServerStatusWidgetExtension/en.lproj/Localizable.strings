@@ -39,3 +39,11 @@
 "widget.display.description.simple" = "Simple server status card.";
 "widget.display.name.horizontal_metrics" = "Mono Dash Server Metrics";
 "widget.display.description.horizontal_metrics" = "Server status card with horizontal CPU, memory, and disk metrics.";
+"transfer.activity.uploading" = "Uploading";
+"transfer.activity.downloading" = "Downloading";
+"transfer.activity.preparing" = "Preparing";
+"transfer.activity.running" = "Running";
+"transfer.activity.completed" = "Completed";
+"transfer.activity.failed" = "Failed";
+"transfer.activity.cancelled" = "Cancelled";
+"transfer.activity.per_second" = "/s";
