@@ -8,6 +8,9 @@ Mono Dash is an open-source, third-party mobile management client for
 Connect to your own 1Panel servers and manage daily operations from your phone
 with a focused, native interface.
 
+[![Download on the App Store](https://img.shields.io/badge/Download_on_the-App_Store-0D0D0D?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/app/mono-dash-made-for-1panel/id6766814493)
+[![Get it on Google Play](https://img.shields.io/badge/Get_it_on-Google_Play-0D0D0D?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=cc.boring_lab.monodash)
+
 > Mono Dash is an independent third-party client. It is not an official 1Panel
 > product and is not affiliated with, endorsed by, or sponsored by 1Panel.
 

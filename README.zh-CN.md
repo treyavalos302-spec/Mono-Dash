@@ -6,6 +6,9 @@ Mono Dash 是一个开源的 1Panel 第三方移动端管理客户端。
 
 你可以连接自己拥有或有权管理的 1Panel 服务器，并在手机上通过更聚焦的原生界面完成日常运维操作。
 
+[![Download on the App Store](https://img.shields.io/badge/Download_on_the-App_Store-0D0D0D?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/app/mono-dash-made-for-1panel/id6766814493)
+[![Get it on Google Play](https://img.shields.io/badge/Get_it_on-Google_Play-0D0D0D?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=cc.boring_lab.monodash)
+
 > Mono Dash 是独立的第三方客户端，不是 1Panel 官方产品，也不隶属于、
 > 不代表、不受 1Panel 认可或赞助。
 
