@@ -1,6 +1,8 @@
 class Server {
   int id = 0;
 
+  String syncId = '';
+
   String? name;
 
   late String host;
@@ -14,6 +16,8 @@ class Server {
   int sortIndex = 0;
 
   DateTime? createdAt;
+
+  DateTime? updatedAt;
 
   DateTime? lastUsedAt;
 
@@ -32,6 +36,7 @@ class Server {
   Map<String, Object?> toJson() {
     return {
       'id': id,
+      'syncId': syncId,
       'name': name,
       'host': host,
       'port': port,
@@ -39,6 +44,7 @@ class Server {
       'allowInsecureConnections': allowInsecureConnections,
       'sortIndex': sortIndex,
       'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
       'lastUsedAt': lastUsedAt?.toIso8601String(),
     };
   }
@@ -46,6 +52,7 @@ class Server {
   static Server fromJson(Map<String, Object?> json) {
     return Server()
       ..id = _intValue(json['id'])
+      ..syncId = json['syncId'] as String? ?? ''
       ..name = json['name'] as String?
       ..host = json['host'] as String
       ..port = _intValue(json['port'])
@@ -53,6 +60,7 @@ class Server {
       ..allowInsecureConnections = json['allowInsecureConnections'] == true
       ..sortIndex = _intValue(json['sortIndex'])
       ..createdAt = _dateTimeValue(json['createdAt'])
+      ..updatedAt = _dateTimeValue(json['updatedAt'])
       ..lastUsedAt = _dateTimeValue(json['lastUsedAt']);
   }
 

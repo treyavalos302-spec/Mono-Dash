@@ -4304,6 +4304,84 @@ abstract class AppLocalizations {
   /// **'{seconds} s'**
   String settings_network_requestTimeoutSubtitle(int seconds);
 
+  /// Settings section title for iCloud sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync'**
+  String get settings_sync_title;
+
+  /// Settings row title for iCloud sync.
+  ///
+  /// In en, this message translates to:
+  /// **'iCloud Sync'**
+  String get settings_sync_iCloudTitle;
+
+  /// Subtitle shown when iCloud sync is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync servers and API keys, off by default'**
+  String get settings_sync_disabledSubtitle;
+
+  /// Subtitle shown when iCloud sync is enabled but has not succeeded yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled, waiting for the first sync'**
+  String get settings_sync_enabledWaitingSubtitle;
+
+  /// Subtitle shown when iCloud is unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'iCloud is unavailable. Check system iCloud and iCloud Keychain settings.'**
+  String get settings_sync_unavailableSubtitle;
+
+  /// Subtitle showing the last successful sync time.
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced: {time}'**
+  String settings_sync_lastSucceeded(String time);
+
+  /// Settings row title for manually starting sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Now'**
+  String get settings_sync_syncNowTitle;
+
+  /// Settings row subtitle for manually starting sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull from iCloud and merge server info'**
+  String get settings_sync_syncNowSubtitle;
+
+  /// Subtitle showing the last sync attempt time.
+  ///
+  /// In en, this message translates to:
+  /// **'Last attempt: {time}'**
+  String settings_sync_lastAttempted(String time);
+
+  /// Toast shown after enabling iCloud sync.
+  ///
+  /// In en, this message translates to:
+  /// **'iCloud Sync is enabled'**
+  String get settings_sync_enabledToast;
+
+  /// Toast shown after disabling iCloud sync.
+  ///
+  /// In en, this message translates to:
+  /// **'iCloud Sync is disabled'**
+  String get settings_sync_disabledToast;
+
+  /// Toast shown after sync succeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync completed'**
+  String get settings_sync_successToast;
+
+  /// Toast shown after sync fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync failed'**
+  String get settings_sync_failedToast;
+
   /// Settings row title for custom request headers.
   ///
   /// In en, this message translates to:

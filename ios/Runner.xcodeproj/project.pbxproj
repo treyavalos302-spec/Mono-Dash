@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		329229A378D64CAC8F957392 /* ServerWidgetBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B962BA402BED2826972C65D5 /* ServerWidgetBridge.swift */; };
+		4F3A00100000000000000001 /* ICloudKeyValueBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A00110000000000000001 /* ICloudKeyValueBridge.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -99,6 +100,7 @@
 		4F1A00210000000000000001 /* ServerStatusWidgetHorizontalMetricsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStatusWidgetHorizontalMetricsStyle.swift; sourceTree = "<group>"; };
 		4F1A00320000000000000001 /* TransferActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferActivityAttributes.swift; sourceTree = "<group>"; };
 		4F1A00410000000000000001 /* FileTransferLiveActivityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTransferLiveActivityBridge.swift; sourceTree = "<group>"; };
+		4F3A00110000000000000001 /* ICloudKeyValueBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudKeyValueBridge.swift; sourceTree = "<group>"; };
 		4F1A00510000000000000001 /* FileTransferActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTransferActivityWidget.swift; sourceTree = "<group>"; };
 		4F2A00100000000000000001 /* ServerStatusWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ServerStatusWidget.intentdefinition; sourceTree = "<group>"; };
 		4F2A00400000000000000001 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */,
 				774A061C2BAA4FCABF521572 /* LocalNetworkAuthorization.swift */,
 				B962BA402BED2826972C65D5 /* ServerWidgetBridge.swift */,
+				4F3A00110000000000000001 /* ICloudKeyValueBridge.swift */,
 				4F1A00320000000000000001 /* TransferActivityAttributes.swift */,
 				4F1A00410000000000000001 /* FileTransferLiveActivityBridge.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
@@ -386,6 +389,11 @@
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -562,6 +570,7 @@
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
 				8E71663D89F4461AB35185A8 /* LocalNetworkAuthorization.swift in Sources */,
 				329229A378D64CAC8F957392 /* ServerWidgetBridge.swift in Sources */,
+				4F3A00100000000000000001 /* ICloudKeyValueBridge.swift in Sources */,
 				4F1A00300000000000000001 /* TransferActivityAttributes.swift in Sources */,
 				4F1A00400000000000000001 /* FileTransferLiveActivityBridge.swift in Sources */,
 			);

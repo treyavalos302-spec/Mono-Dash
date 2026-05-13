@@ -2327,6 +2327,53 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get settings_sync_title => 'Sync';
+
+  @override
+  String get settings_sync_iCloudTitle => 'iCloud Sync';
+
+  @override
+  String get settings_sync_disabledSubtitle =>
+      'Sync servers and API keys, off by default';
+
+  @override
+  String get settings_sync_enabledWaitingSubtitle =>
+      'Enabled, waiting for the first sync';
+
+  @override
+  String get settings_sync_unavailableSubtitle =>
+      'iCloud is unavailable. Check system iCloud and iCloud Keychain settings.';
+
+  @override
+  String settings_sync_lastSucceeded(String time) {
+    return 'Last synced: $time';
+  }
+
+  @override
+  String get settings_sync_syncNowTitle => 'Sync Now';
+
+  @override
+  String get settings_sync_syncNowSubtitle =>
+      'Pull from iCloud and merge server info';
+
+  @override
+  String settings_sync_lastAttempted(String time) {
+    return 'Last attempt: $time';
+  }
+
+  @override
+  String get settings_sync_enabledToast => 'iCloud Sync is enabled';
+
+  @override
+  String get settings_sync_disabledToast => 'iCloud Sync is disabled';
+
+  @override
+  String get settings_sync_successToast => 'Sync completed';
+
+  @override
+  String get settings_sync_failedToast => 'Sync failed';
+
+  @override
   String get settings_network_customHeadersTitle => 'Custom Headers';
 
   @override

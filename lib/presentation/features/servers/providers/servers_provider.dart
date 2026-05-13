@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/localization/locale_controller.dart';
 import '../../../../core/network/dio_client_provider.dart';
+import '../../../../core/storage/storage_service.dart';
 import '../../../../core/widgets/ios_server_widget_bridge.dart';
 import '../../../../data/api/dashboard_api.dart';
 import '../../../../data/repositories_impl/server_repository_impl.dart';
@@ -25,6 +26,12 @@ part 'servers_provider.g.dart';
 class ServersNotifier extends _$ServersNotifier {
   @override
   FutureOr<List<Server>> build() async {
+    final storage = ref.watch(storageServiceProvider);
+    final subscription = storage.serversChanged.listen((_) {
+      ref.invalidateSelf();
+    });
+    ref.onDispose(subscription.cancel);
+
     final repo = ref.watch(serverRepositoryProvider);
     final servers = await repo.list();
     unawaited(_syncServerWidgetData(repo, servers));

@@ -39,11 +39,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localeOption = ref.watch(localeControllerProvider);
     final platformLocale = WidgetsBinding.instance.platformDispatcher.locale;
-    unawaited(
-      IosServerWidgetBridge.syncLocale(
-        localeOption.widgetLocaleCode(platformLocale),
-      ),
-    );
+    final widgetLocaleCode = localeOption.widgetLocaleCode(platformLocale);
     final settingsAsync = ref.watch(appSettingsControllerProvider);
     final appearanceMode =
         settingsAsync.valueOrNull?.appearanceMode ?? AppAppearanceMode.system;
@@ -55,39 +51,220 @@ class MyApp extends ConsumerWidget {
       AppAppearanceMode.light => Brightness.light,
       AppAppearanceMode.dark => Brightness.dark,
     };
-    unawaited(
-      IosServerWidgetBridge.syncAppIcon(
-        appIconVariant.effectiveAlternateIconName(effectiveBrightness),
-      ),
+    final widgetAppIconName = appIconVariant.effectiveAlternateIconName(
+      effectiveBrightness,
     );
 
     return _AppIconAutoSync(
       enabled: settingsAsync.hasValue,
       appearanceMode: appearanceMode,
       variant: appIconVariant,
-      child: _PurchaseEntitlementMaintenance(
-        child: CupertinoApp.router(
-          debugShowCheckedModeBanner: false,
-          onGenerateTitle: (context) => AppLocalizations.of(context).app_title,
-          theme: switch (appearanceMode) {
-            AppAppearanceMode.system => AppTheme.systemTheme,
-            AppAppearanceMode.light => AppTheme.lightTheme,
-            AppAppearanceMode.dark => AppTheme.darkTheme,
-          },
-          routerConfig: appRouter,
-          builder: (context, child) =>
-              AppLockGate(child: child ?? const SizedBox.shrink()),
-          locale: localeOption.toLocale(),
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
+      child: _IosServerWidgetSettingsSync(
+        appLocaleCode: widgetLocaleCode,
+        appIconName: widgetAppIconName,
+        child: _ICloudServerSyncMaintenance(
+          child: _PurchaseEntitlementMaintenance(
+            child: CupertinoApp.router(
+              debugShowCheckedModeBanner: false,
+              onGenerateTitle: (context) =>
+                  AppLocalizations.of(context).app_title,
+              theme: switch (appearanceMode) {
+                AppAppearanceMode.system => AppTheme.systemTheme,
+                AppAppearanceMode.light => AppTheme.lightTheme,
+                AppAppearanceMode.dark => AppTheme.darkTheme,
+              },
+              routerConfig: appRouter,
+              builder: (context, child) =>
+                  AppLockGate(child: child ?? const SizedBox.shrink()),
+              locale: localeOption.toLocale(),
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+}
+
+class _ICloudServerSyncMaintenance extends ConsumerStatefulWidget {
+  const _ICloudServerSyncMaintenance({required this.child});
+
+  final Widget child;
+
+  @override
+  ConsumerState<_ICloudServerSyncMaintenance> createState() =>
+      _ICloudServerSyncMaintenanceState();
+}
+
+class _ICloudServerSyncMaintenanceState
+    extends ConsumerState<_ICloudServerSyncMaintenance>
+    with WidgetsBindingObserver {
+  static const _syncDelay = Duration(seconds: 5);
+  static const _syncThrottleInterval = Duration(minutes: 1);
+
+  Timer? _syncTimer;
+  DateTime? _lastSyncStartedAt;
+  bool _isForeground = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _isForeground =
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.paused &&
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.inactive &&
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.detached;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scheduleSync();
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _isForeground = true;
+      _scheduleSync();
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      _isForeground = false;
+      _syncTimer?.cancel();
+    }
+  }
+
+  @override
+  void dispose() {
+    _syncTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+
+  void _scheduleSync() {
+    if (!mounted || !_isForeground) return;
+    final storageService = ref.read(storageServiceProvider);
+    if (!storageService.isServerSyncEnabled) return;
+
+    final now = DateTime.now();
+    final lastStartedAt = _lastSyncStartedAt;
+    if (lastStartedAt != null &&
+        now.difference(lastStartedAt) < _syncThrottleInterval) {
+      return;
+    }
+
+    _syncTimer?.cancel();
+    _syncTimer = Timer(_syncDelay, () {
+      if (!mounted || !_isForeground) return;
+      final latestStorageService = ref.read(storageServiceProvider);
+      if (!latestStorageService.isServerSyncEnabled) return;
+
+      _lastSyncStartedAt = DateTime.now();
+      unawaited(latestStorageService.syncServersFromCloud());
+    });
+  }
+}
+
+class _IosServerWidgetSettingsSync extends StatefulWidget {
+  const _IosServerWidgetSettingsSync({
+    required this.appLocaleCode,
+    required this.appIconName,
+    required this.child,
+  });
+
+  final String appLocaleCode;
+  final String? appIconName;
+  final Widget child;
+
+  @override
+  State<_IosServerWidgetSettingsSync> createState() =>
+      _IosServerWidgetSettingsSyncState();
+}
+
+class _IosServerWidgetSettingsSyncState
+    extends State<_IosServerWidgetSettingsSync>
+    with WidgetsBindingObserver {
+  static const _syncDelay = Duration(seconds: 2);
+
+  Timer? _syncTimer;
+  String? _lastSyncedLocaleCode;
+  String? _lastSyncedAppIconName;
+  bool _isForeground = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _isForeground =
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.paused &&
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.inactive &&
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.detached;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scheduleSync();
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant _IosServerWidgetSettingsSync oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.appLocaleCode != widget.appLocaleCode ||
+        oldWidget.appIconName != widget.appIconName) {
+      _scheduleSync();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _isForeground = true;
+      _scheduleSync();
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      _isForeground = false;
+      _syncTimer?.cancel();
+    }
+  }
+
+  @override
+  void dispose() {
+    _syncTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+
+  void _scheduleSync() {
+    if (!mounted || !_isForeground || !Platform.isIOS) return;
+    _syncTimer?.cancel();
+    _syncTimer = Timer(_syncDelay, () {
+      if (!mounted || !_isForeground) return;
+      unawaited(_syncSettings());
+    });
+  }
+
+  Future<void> _syncSettings() async {
+    final localeCode = widget.appLocaleCode;
+    final appIconName = widget.appIconName;
+    if (_lastSyncedLocaleCode != localeCode) {
+      await IosServerWidgetBridge.syncLocale(localeCode);
+      _lastSyncedLocaleCode = localeCode;
+    }
+    if (_lastSyncedAppIconName != appIconName) {
+      await IosServerWidgetBridge.syncAppIcon(appIconName);
+      _lastSyncedAppIconName = appIconName;
+    }
   }
 }
 
@@ -142,14 +319,22 @@ class _AppIconAutoSync extends StatefulWidget {
 
 class _AppIconAutoSyncState extends State<_AppIconAutoSync>
     with WidgetsBindingObserver {
+  static const _syncDelay = Duration(seconds: 2);
+
+  Timer? _syncTimer;
   bool _hasAppliedIconName = false;
   String? _lastAppliedIconName;
+  bool _isForeground = true;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _syncAppIcon());
+    _isForeground =
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.paused &&
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.inactive &&
+        WidgetsBinding.instance.lifecycleState != AppLifecycleState.detached;
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scheduleSyncAppIcon());
   }
 
   @override
@@ -158,32 +343,48 @@ class _AppIconAutoSyncState extends State<_AppIconAutoSync>
     if (oldWidget.enabled != widget.enabled ||
         oldWidget.appearanceMode != widget.appearanceMode ||
         oldWidget.variant != widget.variant) {
-      _syncAppIcon();
+      _scheduleSyncAppIcon();
     }
   }
 
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    _syncAppIcon();
+    _scheduleSyncAppIcon();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
-      _syncAppIcon();
+      _isForeground = true;
+      _scheduleSyncAppIcon();
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      _isForeground = false;
+      _syncTimer?.cancel();
     }
   }
 
   @override
   void dispose() {
+    _syncTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) => widget.child;
+
+  void _scheduleSyncAppIcon() {
+    if (!mounted || !_isForeground || !Platform.isIOS) return;
+    _syncTimer?.cancel();
+    _syncTimer = Timer(_syncDelay, () {
+      if (!mounted || !_isForeground) return;
+      unawaited(_syncAppIcon());
+    });
+  }
 
   Future<void> _syncAppIcon() async {
     if (!widget.enabled || !Platform.isIOS) return;

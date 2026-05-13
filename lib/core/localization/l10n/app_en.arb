@@ -3190,6 +3190,68 @@
       }
     }
   },
+  "settings_sync_title": "Sync",
+  "@settings_sync_title": {
+    "description": "Settings section title for iCloud sync."
+  },
+  "settings_sync_iCloudTitle": "iCloud Sync",
+  "@settings_sync_iCloudTitle": {
+    "description": "Settings row title for iCloud sync."
+  },
+  "settings_sync_disabledSubtitle": "Sync servers and API keys, off by default",
+  "@settings_sync_disabledSubtitle": {
+    "description": "Subtitle shown when iCloud sync is disabled."
+  },
+  "settings_sync_enabledWaitingSubtitle": "Enabled, waiting for the first sync",
+  "@settings_sync_enabledWaitingSubtitle": {
+    "description": "Subtitle shown when iCloud sync is enabled but has not succeeded yet."
+  },
+  "settings_sync_unavailableSubtitle": "iCloud is unavailable. Check system iCloud and iCloud Keychain settings.",
+  "@settings_sync_unavailableSubtitle": {
+    "description": "Subtitle shown when iCloud is unavailable."
+  },
+  "settings_sync_lastSucceeded": "Last synced: {time}",
+  "@settings_sync_lastSucceeded": {
+    "description": "Subtitle showing the last successful sync time.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_sync_syncNowTitle": "Sync Now",
+  "@settings_sync_syncNowTitle": {
+    "description": "Settings row title for manually starting sync."
+  },
+  "settings_sync_syncNowSubtitle": "Pull from iCloud and merge server info",
+  "@settings_sync_syncNowSubtitle": {
+    "description": "Settings row subtitle for manually starting sync."
+  },
+  "settings_sync_lastAttempted": "Last attempt: {time}",
+  "@settings_sync_lastAttempted": {
+    "description": "Subtitle showing the last sync attempt time.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_sync_enabledToast": "iCloud Sync is enabled",
+  "@settings_sync_enabledToast": {
+    "description": "Toast shown after enabling iCloud sync."
+  },
+  "settings_sync_disabledToast": "iCloud Sync is disabled",
+  "@settings_sync_disabledToast": {
+    "description": "Toast shown after disabling iCloud sync."
+  },
+  "settings_sync_successToast": "Sync completed",
+  "@settings_sync_successToast": {
+    "description": "Toast shown after sync succeeds."
+  },
+  "settings_sync_failedToast": "Sync failed",
+  "@settings_sync_failedToast": {
+    "description": "Toast shown after sync fails."
+  },
   "settings_network_customHeadersTitle": "Custom Headers",
   "@settings_network_customHeadersTitle": {
     "description": "Settings row title for custom request headers."

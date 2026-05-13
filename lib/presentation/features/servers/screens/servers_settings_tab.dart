@@ -12,6 +12,7 @@ import '../../../../core/localization/generated/app_localizations.dart';
 import '../../../../core/localization/l10n_x.dart';
 import '../../../../core/localization/locale_controller.dart';
 import '../../../../core/network/app_user_agent.dart';
+import '../../../../core/storage/storage_service.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/format_utils.dart';
 import '../../../common/app_toast.dart';
@@ -54,6 +55,9 @@ class ServersSettingsTab extends ConsumerWidget {
         settings?.appearanceMode ?? AppAppearanceMode.system;
     final appLockAsync = ref.watch(appLockControllerProvider);
     final appLockEnabled = appLockAsync.valueOrNull?.enabled ?? false;
+    final syncStatusAsync = ref.watch(serverSyncStatusProvider);
+    final syncStatus = syncStatusAsync.valueOrNull;
+    final syncEnabled = syncStatus?.enabled ?? false;
     final requestTimeoutSeconds =
         settings?.requestTimeoutSeconds ??
         AppSettingsController.defaultRequestTimeoutSeconds;
@@ -120,6 +124,38 @@ class ServersSettingsTab extends ConsumerWidget {
                       ),
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Sync Section
+              SubMenuCard(
+                title: l10n.settings_sync_title,
+                children: [
+                  _SettingsSwitchRow(
+                    icon: CupertinoIcons.cloud_fill,
+                    iconColor: CupertinoColors.systemTeal,
+                    title: l10n.settings_sync_iCloudTitle,
+                    subtitle: _syncStatusSubtitle(
+                      context,
+                      syncStatus,
+                      syncStatusAsync.isLoading,
+                    ),
+                    value: syncEnabled,
+                    onChanged: syncStatusAsync.isLoading
+                        ? null
+                        : (value) => _setServerSyncEnabled(context, ref, value),
+                  ),
+                  if (syncEnabled)
+                    _SettingsRow(
+                      icon: CupertinoIcons.arrow_2_circlepath,
+                      iconColor: CupertinoColors.activeBlue,
+                      title: l10n.settings_sync_syncNowTitle,
+                      subtitle: _syncAttemptSubtitle(context, syncStatus),
+                      onTap: syncStatusAsync.isLoading
+                          ? null
+                          : () => _syncServersNow(context, ref),
+                    ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -269,6 +305,81 @@ class ServersSettingsTab extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  String _syncStatusSubtitle(
+    BuildContext context,
+    ServerSyncStatus? status,
+    bool isLoading,
+  ) {
+    final l10n = context.l10n;
+    if (isLoading && status == null) return l10n.common_loading;
+    if (status == null || !status.enabled) {
+      return l10n.settings_sync_disabledSubtitle;
+    }
+    if (!status.iCloudAvailable) {
+      return l10n.settings_sync_unavailableSubtitle;
+    }
+    final lastSucceededAt = status.lastSucceededAt;
+    if (lastSucceededAt == null) {
+      return l10n.settings_sync_enabledWaitingSubtitle;
+    }
+    return l10n.settings_sync_lastSucceeded(
+      formatLocalDateTime(
+        lastSucceededAt.toIso8601String(),
+        locale: Localizations.localeOf(context).toLanguageTag(),
+        includeSeconds: false,
+      ),
+    );
+  }
+
+  String _syncAttemptSubtitle(BuildContext context, ServerSyncStatus? status) {
+    final attemptedAt = status?.lastAttemptedAt;
+    if (attemptedAt == null) return context.l10n.settings_sync_syncNowSubtitle;
+    return context.l10n.settings_sync_lastAttempted(
+      formatLocalDateTime(
+        attemptedAt.toIso8601String(),
+        locale: Localizations.localeOf(context).toLanguageTag(),
+        includeSeconds: false,
+      ),
+    );
+  }
+
+  Future<void> _setServerSyncEnabled(
+    BuildContext context,
+    WidgetRef ref,
+    bool enabled,
+  ) async {
+    final l10n = context.l10n;
+    try {
+      await ref.read(storageServiceProvider).setServerSyncEnabled(enabled);
+      ref.invalidate(serverSyncStatusProvider);
+      showAppSuccessToast(
+        enabled
+            ? l10n.settings_sync_enabledToast
+            : l10n.settings_sync_disabledToast,
+      );
+    } catch (error) {
+      showAppErrorToast(l10n.settings_sync_failedToast, description: '$error');
+    }
+  }
+
+  Future<void> _syncServersNow(BuildContext context, WidgetRef ref) async {
+    final l10n = context.l10n;
+    try {
+      await ref.read(storageServiceProvider).syncServersFromCloud(force: true);
+      ref.invalidate(serverSyncStatusProvider);
+      final status = await ref
+          .read(storageServiceProvider)
+          .getServerSyncStatus();
+      if (!status.iCloudAvailable) {
+        showAppErrorToast(l10n.settings_sync_unavailableSubtitle);
+        return;
+      }
+      showAppSuccessToast(l10n.settings_sync_successToast);
+    } catch (error) {
+      showAppErrorToast(l10n.settings_sync_failedToast, description: '$error');
+    }
   }
 
   Future<void> _showOpenSourceLicenses(BuildContext context) async {
@@ -638,6 +749,71 @@ class _SettingsRow extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _SettingsSwitchRow extends StatelessWidget {
+  const _SettingsSwitchRow({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+    required this.value,
+    required this.onChanged,
+    this.subtitle,
+  });
+
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+  final String? subtitle;
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: iconColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, size: 18, color: iconColor),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.label(context),
+                    letterSpacing: -0.4,
+                  ),
+                ),
+                if (subtitle != null)
+                  Text(
+                    subtitle!,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.secondaryLabel(context),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          CupertinoSwitch(value: value, onChanged: onChanged),
+        ],
       ),
     );
   }

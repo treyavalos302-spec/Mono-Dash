@@ -2262,6 +2262,50 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get settings_sync_title => '同步';
+
+  @override
+  String get settings_sync_iCloudTitle => 'iCloud 同步';
+
+  @override
+  String get settings_sync_disabledSubtitle => '同步服务器与 API Key，默认关闭';
+
+  @override
+  String get settings_sync_enabledWaitingSubtitle => '已开启，等待首次同步';
+
+  @override
+  String get settings_sync_unavailableSubtitle =>
+      'iCloud 不可用，请检查系统 iCloud 与 iCloud 钥匙串设置';
+
+  @override
+  String settings_sync_lastSucceeded(String time) {
+    return '上次同步：$time';
+  }
+
+  @override
+  String get settings_sync_syncNowTitle => '立即同步';
+
+  @override
+  String get settings_sync_syncNowSubtitle => '从 iCloud 拉取并合并服务器信息';
+
+  @override
+  String settings_sync_lastAttempted(String time) {
+    return '上次尝试：$time';
+  }
+
+  @override
+  String get settings_sync_enabledToast => 'iCloud 同步已开启';
+
+  @override
+  String get settings_sync_disabledToast => 'iCloud 同步已关闭';
+
+  @override
+  String get settings_sync_successToast => '同步完成';
+
+  @override
+  String get settings_sync_failedToast => '同步失败';
+
+  @override
   String get settings_network_customHeadersTitle => '自定义 Header';
 
   @override
