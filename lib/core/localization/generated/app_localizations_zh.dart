@@ -2317,6 +2317,41 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get settings_serversAutoRefreshTitle => '自动刷新服务器';
+
+  @override
+  String settings_serversAutoRefreshSubtitleOn(int seconds) {
+    return '每 $seconds 秒刷新一次';
+  }
+
+  @override
+  String get settings_serversAutoRefreshSubtitleOff => '仅在打开或手动刷新时更新服务器状态';
+
+  @override
+  String get settings_serversRefreshIntervalTitle => '刷新频率';
+
+  @override
+  String settings_serversRefreshIntervalSubtitle(int seconds) {
+    return '$seconds 秒';
+  }
+
+  @override
+  String get settings_serversRefreshIntervalPlaceholder => '例如：5';
+
+  @override
+  String get settings_serversRefreshIntervalDescription =>
+      '用于服务器页面自动刷新，范围 1-300 秒。';
+
+  @override
+  String get settings_serversRefreshIntervalErrorEmpty => '请输入刷新频率';
+
+  @override
+  String get settings_serversRefreshIntervalErrorRange => '请输入 1-300 秒之间的数值';
+
+  @override
+  String get settings_serversRefreshIntervalUpdated => '刷新频率已更新';
+
+  @override
   String get ssh_title => 'SSH 管理';
 
   @override

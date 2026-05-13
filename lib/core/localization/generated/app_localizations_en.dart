@@ -2385,6 +2385,45 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get settings_serversAutoRefreshTitle => 'Auto Refresh Servers';
+
+  @override
+  String settings_serversAutoRefreshSubtitleOn(int seconds) {
+    return 'Refresh every $seconds s';
+  }
+
+  @override
+  String get settings_serversAutoRefreshSubtitleOff =>
+      'Server status updates only when opened or refreshed manually';
+
+  @override
+  String get settings_serversRefreshIntervalTitle => 'Refresh Interval';
+
+  @override
+  String settings_serversRefreshIntervalSubtitle(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String get settings_serversRefreshIntervalPlaceholder => 'For example: 5';
+
+  @override
+  String get settings_serversRefreshIntervalDescription =>
+      'Used for automatic refresh on the servers page. Range: 1-300 seconds.';
+
+  @override
+  String get settings_serversRefreshIntervalErrorEmpty =>
+      'Enter a refresh interval';
+
+  @override
+  String get settings_serversRefreshIntervalErrorRange =>
+      'Enter a value from 1 to 300 seconds';
+
+  @override
+  String get settings_serversRefreshIntervalUpdated =>
+      'Refresh interval updated';
+
+  @override
   String get ssh_title => 'SSH Management';
 
   @override

@@ -105,6 +105,8 @@ class AppSettings {
     this.serverCardStyle = ServerCardStyle.simple,
     this.appearanceMode = AppAppearanceMode.system,
     this.requestTimeoutSeconds = 60,
+    this.serversAutoRefreshEnabled = true,
+    this.serversRefreshIntervalSeconds = 5,
     this.customHeaders = const {},
   });
 
@@ -112,6 +114,8 @@ class AppSettings {
   final ServerCardStyle serverCardStyle;
   final AppAppearanceMode appearanceMode;
   final int requestTimeoutSeconds;
+  final bool serversAutoRefreshEnabled;
+  final int serversRefreshIntervalSeconds;
   final Map<String, String> customHeaders;
 
   AppSettings copyWith({
@@ -119,6 +123,8 @@ class AppSettings {
     ServerCardStyle? serverCardStyle,
     AppAppearanceMode? appearanceMode,
     int? requestTimeoutSeconds,
+    bool? serversAutoRefreshEnabled,
+    int? serversRefreshIntervalSeconds,
     Map<String, String>? customHeaders,
   }) {
     return AppSettings(
@@ -127,6 +133,10 @@ class AppSettings {
       appearanceMode: appearanceMode ?? this.appearanceMode,
       requestTimeoutSeconds:
           requestTimeoutSeconds ?? this.requestTimeoutSeconds,
+      serversAutoRefreshEnabled:
+          serversAutoRefreshEnabled ?? this.serversAutoRefreshEnabled,
+      serversRefreshIntervalSeconds:
+          serversRefreshIntervalSeconds ?? this.serversRefreshIntervalSeconds,
       customHeaders: customHeaders ?? this.customHeaders,
     );
   }
@@ -138,8 +148,12 @@ class AppSettingsController extends _$AppSettingsController {
   static const _serverCardStyleKey = 'server_card_style';
   static const _appearanceModeKey = 'appearance_mode';
   static const _requestTimeoutSecondsKey = 'request_timeout_seconds';
+  static const _serversAutoRefreshEnabledKey = 'servers_auto_refresh_enabled';
+  static const _serversRefreshIntervalSecondsKey =
+      'servers_refresh_interval_seconds';
   static const _customHeadersKey = 'custom_headers';
   static const defaultRequestTimeoutSeconds = 60;
+  static const defaultServersRefreshIntervalSeconds = 5;
 
   @override
   Future<AppSettings> build() async {
@@ -157,6 +171,11 @@ class AppSettingsController extends _$AppSettingsController {
       requestTimeoutSeconds:
           prefs.getInt(_requestTimeoutSecondsKey) ??
           defaultRequestTimeoutSeconds,
+      serversAutoRefreshEnabled:
+          prefs.getBool(_serversAutoRefreshEnabledKey) ?? true,
+      serversRefreshIntervalSeconds:
+          prefs.getInt(_serversRefreshIntervalSecondsKey) ??
+          defaultServersRefreshIntervalSeconds,
       customHeaders: _decodeHeaders(prefs.getString(_customHeadersKey)),
     );
     return settings;
@@ -201,6 +220,27 @@ class AppSettingsController extends _$AppSettingsController {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_requestTimeoutSecondsKey, value);
+  }
+
+  Future<void> setServersAutoRefreshEnabled(bool enabled) async {
+    final previous = state.valueOrNull ?? const AppSettings();
+    state = AsyncValue.data(
+      previous.copyWith(serversAutoRefreshEnabled: enabled),
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_serversAutoRefreshEnabledKey, enabled);
+  }
+
+  Future<void> setServersRefreshIntervalSeconds(int seconds) async {
+    final value = seconds.clamp(1, 300);
+    final previous = state.valueOrNull ?? const AppSettings();
+    state = AsyncValue.data(
+      previous.copyWith(serversRefreshIntervalSeconds: value),
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_serversRefreshIntervalSecondsKey, value);
   }
 
   Future<void> setCustomHeaders(Map<String, String> headers) async {

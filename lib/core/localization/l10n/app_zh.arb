@@ -731,6 +731,30 @@
   "settings_network_customHeadersTitle": "自定义 Header",
   "settings_network_customHeadersEmpty": "未设置",
   "settings_network_customHeadersCount": "已设置 {count} 项",
+  "settings_serversAutoRefreshTitle": "自动刷新服务器",
+  "settings_serversAutoRefreshSubtitleOn": "每 {seconds} 秒刷新一次",
+  "@settings_serversAutoRefreshSubtitleOn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_serversAutoRefreshSubtitleOff": "仅在打开或手动刷新时更新服务器状态",
+  "settings_serversRefreshIntervalTitle": "刷新频率",
+  "settings_serversRefreshIntervalSubtitle": "{seconds} 秒",
+  "@settings_serversRefreshIntervalSubtitle": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_serversRefreshIntervalPlaceholder": "例如：5",
+  "settings_serversRefreshIntervalDescription": "用于服务器页面自动刷新，范围 1-300 秒。",
+  "settings_serversRefreshIntervalErrorEmpty": "请输入刷新频率",
+  "settings_serversRefreshIntervalErrorRange": "请输入 1-300 秒之间的数值",
+  "settings_serversRefreshIntervalUpdated": "刷新频率已更新",
   "ssh_title": "SSH 管理",
   "ssh_manage": "管理",
   "ssh_refreshConfig": "刷新配置",

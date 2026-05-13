@@ -3269,6 +3269,56 @@
       }
     }
   },
+  "settings_serversAutoRefreshTitle": "Auto Refresh Servers",
+  "@settings_serversAutoRefreshTitle": {
+    "description": "Settings row title for enabling automatic refresh on the servers page."
+  },
+  "settings_serversAutoRefreshSubtitleOn": "Refresh every {seconds} s",
+  "@settings_serversAutoRefreshSubtitleOn": {
+    "description": "Subtitle shown when servers page auto refresh is enabled.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_serversAutoRefreshSubtitleOff": "Server status updates only when opened or refreshed manually",
+  "@settings_serversAutoRefreshSubtitleOff": {
+    "description": "Subtitle shown when servers page auto refresh is disabled."
+  },
+  "settings_serversRefreshIntervalTitle": "Refresh Interval",
+  "@settings_serversRefreshIntervalTitle": {
+    "description": "Settings row title for editing the servers page refresh interval."
+  },
+  "settings_serversRefreshIntervalSubtitle": "{seconds} s",
+  "@settings_serversRefreshIntervalSubtitle": {
+    "description": "Subtitle showing the servers page refresh interval in seconds.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "settings_serversRefreshIntervalPlaceholder": "For example: 5",
+  "@settings_serversRefreshIntervalPlaceholder": {
+    "description": "Placeholder for the servers page refresh interval field."
+  },
+  "settings_serversRefreshIntervalDescription": "Used for automatic refresh on the servers page. Range: 1-300 seconds.",
+  "@settings_serversRefreshIntervalDescription": {
+    "description": "Description for the servers page refresh interval editor."
+  },
+  "settings_serversRefreshIntervalErrorEmpty": "Enter a refresh interval",
+  "@settings_serversRefreshIntervalErrorEmpty": {
+    "description": "Validation message when the refresh interval is empty."
+  },
+  "settings_serversRefreshIntervalErrorRange": "Enter a value from 1 to 300 seconds",
+  "@settings_serversRefreshIntervalErrorRange": {
+    "description": "Validation message when the refresh interval is out of range."
+  },
+  "settings_serversRefreshIntervalUpdated": "Refresh interval updated",
+  "@settings_serversRefreshIntervalUpdated": {
+    "description": "Toast shown after the servers page refresh interval is updated."
+  },
   "ssh_title": "SSH Management",
   "@ssh_title": {
     "description": "SSH management page title."

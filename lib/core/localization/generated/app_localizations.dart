@@ -4400,6 +4400,66 @@ abstract class AppLocalizations {
   /// **'{count} set'**
   String settings_network_customHeadersCount(int count);
 
+  /// Settings row title for enabling automatic refresh on the servers page.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Refresh Servers'**
+  String get settings_serversAutoRefreshTitle;
+
+  /// Subtitle shown when servers page auto refresh is enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh every {seconds} s'**
+  String settings_serversAutoRefreshSubtitleOn(int seconds);
+
+  /// Subtitle shown when servers page auto refresh is disabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Server status updates only when opened or refreshed manually'**
+  String get settings_serversAutoRefreshSubtitleOff;
+
+  /// Settings row title for editing the servers page refresh interval.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh Interval'**
+  String get settings_serversRefreshIntervalTitle;
+
+  /// Subtitle showing the servers page refresh interval in seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} s'**
+  String settings_serversRefreshIntervalSubtitle(int seconds);
+
+  /// Placeholder for the servers page refresh interval field.
+  ///
+  /// In en, this message translates to:
+  /// **'For example: 5'**
+  String get settings_serversRefreshIntervalPlaceholder;
+
+  /// Description for the servers page refresh interval editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for automatic refresh on the servers page. Range: 1-300 seconds.'**
+  String get settings_serversRefreshIntervalDescription;
+
+  /// Validation message when the refresh interval is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a refresh interval'**
+  String get settings_serversRefreshIntervalErrorEmpty;
+
+  /// Validation message when the refresh interval is out of range.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value from 1 to 300 seconds'**
+  String get settings_serversRefreshIntervalErrorRange;
+
+  /// Toast shown after the servers page refresh interval is updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh interval updated'**
+  String get settings_serversRefreshIntervalUpdated;
+
   /// SSH management page title.
   ///
   /// In en, this message translates to:

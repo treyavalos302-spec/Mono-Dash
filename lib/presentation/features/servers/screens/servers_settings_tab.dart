@@ -61,6 +61,11 @@ class ServersSettingsTab extends ConsumerWidget {
     final requestTimeoutSeconds =
         settings?.requestTimeoutSeconds ??
         AppSettingsController.defaultRequestTimeoutSeconds;
+    final serversAutoRefreshEnabled =
+        settings?.serversAutoRefreshEnabled ?? true;
+    final serversRefreshIntervalSeconds =
+        settings?.serversRefreshIntervalSeconds ??
+        AppSettingsController.defaultServersRefreshIntervalSeconds;
     final customHeaders = settings?.customHeaders ?? const {};
     final localeOption = ref.watch(localeControllerProvider);
 
@@ -250,6 +255,38 @@ class ServersSettingsTab extends ConsumerWidget {
               SubMenuCard(
                 title: l10n.settings_general_title,
                 children: [
+                  _SettingsSwitchRow(
+                    icon: CupertinoIcons.arrow_2_circlepath,
+                    iconColor: CupertinoColors.activeBlue,
+                    title: l10n.settings_serversAutoRefreshTitle,
+                    subtitle: serversAutoRefreshEnabled
+                        ? l10n.settings_serversAutoRefreshSubtitleOn(
+                            serversRefreshIntervalSeconds,
+                          )
+                        : l10n.settings_serversAutoRefreshSubtitleOff,
+                    value: serversAutoRefreshEnabled,
+                    onChanged: settingsAsync.isLoading
+                        ? null
+                        : (value) => ref
+                              .read(appSettingsControllerProvider.notifier)
+                              .setServersAutoRefreshEnabled(value),
+                  ),
+                  if (serversAutoRefreshEnabled)
+                    _SettingsRow(
+                      icon: CupertinoIcons.timer,
+                      iconColor: CupertinoColors.systemGrey,
+                      title: l10n.settings_serversRefreshIntervalTitle,
+                      subtitle: l10n.settings_serversRefreshIntervalSubtitle(
+                        serversRefreshIntervalSeconds,
+                      ),
+                      onTap: settingsAsync.isLoading
+                          ? null
+                          : () => _editServersRefreshInterval(
+                              context,
+                              ref,
+                              serversRefreshIntervalSeconds,
+                            ),
+                    ),
                   _SettingsRow(
                     icon: CupertinoIcons.archivebox_fill,
                     iconColor: CupertinoColors.systemBrown,
@@ -442,6 +479,43 @@ class ServersSettingsTab extends ConsumerWidget {
     await ref
         .read(appSettingsControllerProvider.notifier)
         .setRequestTimeoutSeconds(int.parse(value));
+    showAppSuccessToast(updatedMessage);
+  }
+
+  Future<void> _editServersRefreshInterval(
+    BuildContext context,
+    WidgetRef ref,
+    int currentSeconds,
+  ) async {
+    final l10n = context.l10n;
+    final updatedMessage = l10n.settings_serversRefreshIntervalUpdated;
+    final value = await showEditValueSheet(
+      context,
+      title: l10n.settings_serversRefreshIntervalTitle,
+      initialValue: '$currentSeconds',
+      placeholder: l10n.settings_serversRefreshIntervalPlaceholder,
+      description: l10n.settings_serversRefreshIntervalDescription,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(3),
+      ],
+      validator: (value) {
+        final seconds = int.tryParse(value.trim());
+        if (seconds == null) {
+          return l10n.settings_serversRefreshIntervalErrorEmpty;
+        }
+        if (seconds < 1 || seconds > 300) {
+          return l10n.settings_serversRefreshIntervalErrorRange;
+        }
+        return null;
+      },
+    );
+    if (value == null) return;
+
+    await ref
+        .read(appSettingsControllerProvider.notifier)
+        .setServersRefreshIntervalSeconds(int.parse(value));
     showAppSuccessToast(updatedMessage);
   }
 
