@@ -57,6 +57,7 @@ class StorageService {
   static const _serverSyncLastErrorKey = 'server_sync_last_error';
   static const _serverSyncPayloadKey = 'mono_dash_server_sync_payload_v1';
   static const _serverSyncTombstonesKey = 'server_sync_tombstones_v1';
+  static const _serverMemoPrefix = 'server_memo_v1_';
   static const _uuid = Uuid();
   static const _tombstoneRetention = Duration(days: 90);
 
@@ -194,6 +195,19 @@ class StorageService {
     } else {
       await deleteApiKey(id);
     }
+    await deleteServerMemo(id);
+  }
+
+  Future<String> getServerMemo(int serverId) async {
+    return _prefs.getString('$_serverMemoPrefix$serverId') ?? '';
+  }
+
+  Future<void> saveServerMemo(int serverId, String content) async {
+    await _prefs.setString('$_serverMemoPrefix$serverId', content);
+  }
+
+  Future<void> deleteServerMemo(int serverId) async {
+    await _prefs.remove('$_serverMemoPrefix$serverId');
   }
 
   bool get isServerSyncEnabled =>

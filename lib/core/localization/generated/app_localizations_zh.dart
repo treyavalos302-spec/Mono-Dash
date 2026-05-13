@@ -1974,6 +1974,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get servers_edit => '编辑';
 
   @override
+  String get servers_memo => '备注';
+
+  @override
+  String get servers_editMemo => '编辑备注';
+
+  @override
+  String get servers_noMemo => '暂无备注';
+
+  @override
+  String get servers_loadingMemo => '正在加载备注...';
+
+  @override
+  String get servers_memoUnavailable => '备注不可用';
+
+  @override
+  String get servers_memoPlaceholder => '写点备注...';
+
+  @override
+  String get servers_memoLoadFailed => '备注加载失败';
+
+  @override
+  String get servers_retry => '重试';
+
+  @override
   String get premium_heroSubtitle => '一次购买，永久解锁全部功能';
 
   @override

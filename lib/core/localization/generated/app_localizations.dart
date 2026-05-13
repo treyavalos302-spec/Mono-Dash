@@ -3758,6 +3758,54 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get servers_edit;
 
+  /// Server memo label.
+  ///
+  /// In en, this message translates to:
+  /// **'Memo'**
+  String get servers_memo;
+
+  /// Action label for opening the server memo editor.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Memo'**
+  String get servers_editMemo;
+
+  /// Placeholder shown when the server memo is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No memo yet'**
+  String get servers_noMemo;
+
+  /// Placeholder shown while loading the server memo.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading memo...'**
+  String get servers_loadingMemo;
+
+  /// Placeholder shown when the server memo cannot be loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Memo unavailable'**
+  String get servers_memoUnavailable;
+
+  /// Text field placeholder for editing the server memo.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a memo...'**
+  String get servers_memoPlaceholder;
+
+  /// Server memo load failure state title.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load memo'**
+  String get servers_memoLoadFailed;
+
+  /// Retry action label.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get servers_retry;
+
   /// Premium purchase hero subtitle.
   ///
   /// In en, this message translates to:

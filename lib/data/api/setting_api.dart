@@ -90,6 +90,25 @@ class SettingApi {
     );
   }
 
+  /// 获取 Core 侧备忘录。
+  /// GET /api/v2/core/settings/memo
+  Future<String> getMemo() async {
+    final resp = await _client.get<Map<String, dynamic>>(
+      '/api/v2/core/settings/memo',
+    );
+    return ApiResponseParser.primitive<String>(resp);
+  }
+
+  /// 保存 Core 侧备忘录。
+  /// POST /api/v2/core/settings/memo
+  Future<void> saveMemo(String content) async {
+    final resp = await _client.post<Map<String, dynamic>>(
+      '/api/v2/core/settings/memo',
+      data: {'content': content},
+    );
+    ApiResponseParser.ok(resp);
+  }
+
   /// 更新面板登录密码。
   /// POST /api/v2/core/settings/password/update
   Future<void> updatePassword({

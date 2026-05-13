@@ -2029,6 +2029,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get servers_edit => 'Edit';
 
   @override
+  String get servers_memo => 'Memo';
+
+  @override
+  String get servers_editMemo => 'Edit Memo';
+
+  @override
+  String get servers_noMemo => 'No memo yet';
+
+  @override
+  String get servers_loadingMemo => 'Loading memo...';
+
+  @override
+  String get servers_memoUnavailable => 'Memo unavailable';
+
+  @override
+  String get servers_memoPlaceholder => 'Write a memo...';
+
+  @override
+  String get servers_memoLoadFailed => 'Failed to load memo';
+
+  @override
+  String get servers_retry => 'Retry';
+
+  @override
   String get premium_heroSubtitle =>
       'One purchase, lifetime access to all features';
 

@@ -2791,6 +2791,38 @@
   "@servers_edit": {
     "description": "Server context menu edit action."
   },
+  "servers_memo": "Memo",
+  "@servers_memo": {
+    "description": "Server memo label."
+  },
+  "servers_editMemo": "Edit Memo",
+  "@servers_editMemo": {
+    "description": "Action label for opening the server memo editor."
+  },
+  "servers_noMemo": "No memo yet",
+  "@servers_noMemo": {
+    "description": "Placeholder shown when the server memo is empty."
+  },
+  "servers_loadingMemo": "Loading memo...",
+  "@servers_loadingMemo": {
+    "description": "Placeholder shown while loading the server memo."
+  },
+  "servers_memoUnavailable": "Memo unavailable",
+  "@servers_memoUnavailable": {
+    "description": "Placeholder shown when the server memo cannot be loaded."
+  },
+  "servers_memoPlaceholder": "Write a memo...",
+  "@servers_memoPlaceholder": {
+    "description": "Text field placeholder for editing the server memo."
+  },
+  "servers_memoLoadFailed": "Failed to load memo",
+  "@servers_memoLoadFailed": {
+    "description": "Server memo load failure state title."
+  },
+  "servers_retry": "Retry",
+  "@servers_retry": {
+    "description": "Retry action label."
+  },
   "premium_heroSubtitle": "One purchase, lifetime access to all features",
   "@premium_heroSubtitle": {
     "description": "Premium purchase hero subtitle."

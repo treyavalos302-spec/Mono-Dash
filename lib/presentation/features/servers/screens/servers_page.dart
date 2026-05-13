@@ -16,6 +16,7 @@ import '../providers/servers_provider.dart';
 import '../widgets/add_server_sheet.dart';
 import '../widgets/server_card.dart';
 import '../widgets/server_context_menu.dart';
+import '../widgets/server_memo_curl_card.dart';
 import 'servers_settings_tab.dart';
 
 class ServersPage extends ConsumerStatefulWidget {
@@ -311,7 +312,7 @@ class _ServerListTabState extends ConsumerState<_ServerListTab> {
                                     style: cardStyle,
                                   ),
                                 )
-                              : ServerCard(
+                              : ServerMemoCurlCard(
                                   server: server,
                                   style: cardStyle,
                                   onTap: () =>

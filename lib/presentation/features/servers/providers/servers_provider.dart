@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/localization/locale_controller.dart';
 import '../../../../core/network/dio_client_provider.dart';
+import '../../../../core/network/network_exceptions.dart';
 import '../../../../core/storage/storage_service.dart';
 import '../../../../core/widgets/ios_server_widget_bridge.dart';
 import '../../../../data/api/dashboard_api.dart';
+import '../../../../data/api/setting_api.dart';
 import '../../../../data/repositories_impl/server_repository_impl.dart';
 import '../../../../domain/entities/dashboard.dart';
 import '../../../../domain/entities/server.dart';
@@ -224,3 +227,51 @@ final serverDashboardSnapshotProvider = FutureProvider.autoDispose
       }
       return snapshot;
     });
+
+final serverMemoControllerProvider = StateNotifierProvider.autoDispose
+    .family<ServerMemoController, AsyncValue<String>, int>(
+      ServerMemoController.new,
+      dependencies: [dioClientProvider],
+    );
+
+class ServerMemoController extends StateNotifier<AsyncValue<String>> {
+  ServerMemoController(this.ref, this.serverId)
+    : super(const AsyncValue.loading()) {
+    unawaited(refresh());
+  }
+
+  final Ref ref;
+  final int serverId;
+
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final client = await ref.read(dioClientProvider(serverId).future);
+      try {
+        return await SettingApi(client).getMemo();
+      } on HttpException catch (e) {
+        if (e.statusCode != 404) rethrow;
+        return ref.read(storageServiceProvider).getServerMemo(serverId);
+      }
+    });
+  }
+
+  Future<void> save(String content) async {
+    final previous = state;
+    state = AsyncValue.data(content);
+    try {
+      final client = await ref.read(dioClientProvider(serverId).future);
+      try {
+        await SettingApi(client).saveMemo(content);
+      } on HttpException catch (e) {
+        if (e.statusCode != 404) rethrow;
+        await ref
+            .read(storageServiceProvider)
+            .saveServerMemo(serverId, content);
+      }
+    } catch (_) {
+      state = previous;
+      rethrow;
+    }
+  }
+}
