@@ -16,6 +16,7 @@ import 'core/widgets/ios_server_widget_bridge.dart';
 import 'presentation/features/purchases/providers/purchase_provider.dart';
 import 'presentation/features/settings/providers/app_settings_provider.dart';
 import 'presentation/features/settings/widgets/app_lock_gate.dart';
+import 'presentation/common/components/terminal/floating_terminal_bubble.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,8 +75,11 @@ class MyApp extends ConsumerWidget {
                 AppAppearanceMode.dark => AppTheme.darkTheme,
               },
               routerConfig: appRouter,
-              builder: (context, child) =>
-                  AppLockGate(child: child ?? const SizedBox.shrink()),
+              builder: (context, child) => AppLockGate(
+                child: FloatingTerminalOverlay(
+                  child: child ?? const SizedBox.shrink(),
+                ),
+              ),
               locale: localeOption.toLocale(),
               supportedLocales: AppLocalizations.supportedLocales,
               localizationsDelegates: const [

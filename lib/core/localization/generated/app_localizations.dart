@@ -668,6 +668,24 @@ abstract class AppLocalizations {
   /// **'Paste to Terminal'**
   String get terminal_pasteToTerminal;
 
+  /// Terminal menu item to minimize terminal into a floating bubble.
+  ///
+  /// In en, this message translates to:
+  /// **'Float'**
+  String get terminal_float;
+
+  /// Floating bubble menu item to restore the terminal screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Terminal'**
+  String get terminal_floatRestore;
+
+  /// Floating bubble menu item to close the floating terminal.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Terminal'**
+  String get terminal_floatClose;
+
   /// Bottom tab label for servers.
   ///
   /// In en, this message translates to:

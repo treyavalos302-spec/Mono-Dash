@@ -9,12 +9,15 @@ import 'sheet_route_tracker.dart';
 
 final routeObserver = RouteObserver<ModalRoute>();
 
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+
 /// 全局路由配置。
 ///
 /// 路由表：
 /// - `/`              面板列表
 /// - `/server/:id`    面板详情（内部 5 Tab）
 final appRouter = GoRouter(
+  navigatorKey: rootNavigatorKey,
   initialLocation: '/',
   observers: [sheetRouteTracker, routeObserver],
   routes: [

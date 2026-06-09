@@ -19,6 +19,8 @@ import '../../../../core/storage/storage_service.dart';
 import '../frosted_header.dart';
 import '../frosted_overlay_menu.dart';
 import '../../../features/server_detail/providers/active_server_provider.dart';
+import '../../../../core/router/app_router.dart';
+import 'floating_terminal_controller.dart';
 
 Future<void> showAppTerminal(
   BuildContext context, {
@@ -47,6 +49,39 @@ Future<void> showAppTerminal(
   );
 }
 
+/// 从悬浮状态恢复终端界面。
+Future<void> restoreAppTerminal(
+  BuildContext context,
+  FloatingTerminalState floatingState,
+) {
+  final container = ProviderScope.containerOf(context);
+  final route = CupertinoPageRoute(
+    builder: (context) => UncontrolledProviderScope(
+      container: container,
+      child: ProviderScope(
+        overrides: [
+          activeServerIdProvider.overrideWithValue(floatingState.serverId),
+        ],
+        child: _AppTerminalScreen(
+          containerId: floatingState.containerId,
+          user: floatingState.user,
+          command: floatingState.command,
+          source: floatingState.source,
+          databaseType: floatingState.databaseType,
+          databaseName: floatingState.databaseName,
+          floatingState: floatingState,
+        ),
+      ),
+    ),
+  );
+
+  final navigator = rootNavigatorKey.currentState;
+  if (navigator != null) {
+    return navigator.push(route);
+  }
+  return Navigator.of(context).push(route);
+}
+
 class _AppTerminalScreen extends ConsumerStatefulWidget {
   const _AppTerminalScreen({
     required this.containerId,
@@ -55,6 +90,7 @@ class _AppTerminalScreen extends ConsumerStatefulWidget {
     required this.source,
     this.databaseType,
     this.databaseName,
+    this.floatingState,
   });
 
   final String containerId;
@@ -64,24 +100,41 @@ class _AppTerminalScreen extends ConsumerStatefulWidget {
   final String? databaseType;
   final String? databaseName;
 
+  /// 非 null 时表示从悬浮状态恢复，使用已有的 terminal/channel。
+  final FloatingTerminalState? floatingState;
+
   @override
   ConsumerState<_AppTerminalScreen> createState() => _AppTerminalScreenState();
 }
 
 class _AppTerminalScreenState extends ConsumerState<_AppTerminalScreen> {
   late final Terminal _terminal;
-  final TerminalController _terminalController = TerminalController();
+  late final TerminalController _terminalController;
   final FocusNode _terminalFocusNode = FocusNode();
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
   bool _isConnected = false;
   String _statusMessage = '';
+  bool _floated = false;
 
   @override
   void initState() {
     super.initState();
-    _terminal = Terminal(maxLines: 10000);
-    _connect();
+    final fs = widget.floatingState;
+    if (fs != null) {
+      // 从悬浮状态恢复
+      _terminal = fs.terminal;
+      _terminalController = fs.terminalController;
+      _channel = fs.channel;
+      _subscription = fs.subscription;
+      _isConnected = fs.isConnected;
+      _statusMessage = fs.statusMessage;
+    } else {
+      // 正常创建新连接
+      _terminal = Terminal(maxLines: 10000);
+      _terminalController = TerminalController();
+      _connect();
+    }
   }
 
   Future<void> _connect() async {
@@ -226,11 +279,44 @@ class _AppTerminalScreenState extends ConsumerState<_AppTerminalScreen> {
 
   @override
   void dispose() {
-    _subscription?.cancel();
-    _channel?.sink.close();
-    _terminalController.dispose();
+    if (!_floated) {
+      _subscription?.cancel();
+      _channel?.sink.close();
+      _terminalController.dispose();
+    }
     _terminalFocusNode.dispose();
     super.dispose();
+  }
+
+  void _floatTerminal() {
+    final title = widget.source == 'host'
+        ? context.l10n.terminal_hostTitle
+        : widget.source == 'database'
+        ? context.l10n.terminal_databaseTitle(widget.databaseName ?? '')
+        : context.l10n.terminal_containerTitle(widget.containerId);
+
+    final state = FloatingTerminalState(
+      id: widget.floatingState?.id,
+      bubbleSnapshot: widget.floatingState?.bubbleSnapshot,
+      terminal: _terminal,
+      terminalController: _terminalController,
+      channel: _channel,
+      subscription: _subscription,
+      isConnected: _isConnected,
+      statusMessage: _statusMessage,
+      title: title,
+      containerId: widget.containerId,
+      user: widget.user,
+      command: widget.command,
+      source: widget.source,
+      databaseType: widget.databaseType,
+      databaseName: widget.databaseName,
+      serverId: ref.read(activeServerIdProvider),
+    );
+
+    ref.read(floatingTerminalProvider).floatTerminal(state);
+    _floated = true;
+    Navigator.of(context).pop();
   }
 
   Future<void> _copySelectionOrAll() async {
@@ -367,6 +453,11 @@ class _AppTerminalScreenState extends ConsumerState<_AppTerminalScreen> {
                     isDark: isDark,
                     isOverlapping: isOverlapping,
                     items: [
+                      FrostedMenuItem(
+                        text: context.l10n.terminal_float,
+                        icon: CupertinoIcons.rectangle_on_rectangle,
+                        action: _floatTerminal,
+                      ),
                       FrostedMenuItem(
                         text: context.l10n.terminal_copySelection,
                         icon: CupertinoIcons.doc_on_doc,

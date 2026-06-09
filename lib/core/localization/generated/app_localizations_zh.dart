@@ -331,6 +331,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get terminal_pasteToTerminal => '粘贴到终端';
 
   @override
+  String get terminal_float => '悬浮';
+
+  @override
+  String get terminal_floatRestore => '恢复终端';
+
+  @override
+  String get terminal_floatClose => '关闭终端';
+
+  @override
   String get nav_servers => '服务器';
 
   @override

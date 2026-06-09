@@ -335,6 +335,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get terminal_pasteToTerminal => 'Paste to Terminal';
 
   @override
+  String get terminal_float => 'Float';
+
+  @override
+  String get terminal_floatRestore => 'Restore Terminal';
+
+  @override
+  String get terminal_floatClose => 'Close Terminal';
+
+  @override
   String get nav_servers => 'Servers';
 
   @override

@@ -471,6 +471,18 @@
   "@terminal_pasteToTerminal": {
     "description": "Terminal menu item to paste clipboard text."
   },
+  "terminal_float": "Float",
+  "@terminal_float": {
+    "description": "Terminal menu item to minimize terminal into a floating bubble."
+  },
+  "terminal_floatRestore": "Restore Terminal",
+  "@terminal_floatRestore": {
+    "description": "Floating bubble menu item to restore the terminal screen."
+  },
+  "terminal_floatClose": "Close Terminal",
+  "@terminal_floatClose": {
+    "description": "Floating bubble menu item to close the floating terminal."
+  },
   "nav_servers": "Servers",
   "@nav_servers": {
     "description": "Bottom tab label for servers."
