@@ -32,10 +32,15 @@ android {
         versionName = flutter.versionName
     }
 
-    signingConfigs {
-        create("release") {
-            val keystorePropertiesFile = rootProject.file("key.properties")
-            if (keystorePropertiesFile.exists()) {
+    // Patched: only create a dedicated "release" signing config when a real
+    // keystore (key.properties) is present. Otherwise fall back to the
+    // auto-generated debug signing key so that `flutter build apk --release`
+    // still produces an installable, signed APK in CI without any secrets.
+    val keystorePropertiesFile = rootProject.file("key.properties")
+    val hasReleaseKeystore = keystorePropertiesFile.exists()
+    if (hasReleaseKeystore) {
+        signingConfigs {
+            create("release") {
                 val keystoreProperties = Properties()
                 keystoreProperties.load(keystorePropertiesFile.inputStream())
                 storeFile = file(keystoreProperties.getProperty("storeFile"))
@@ -48,7 +53,11 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (hasReleaseKeystore) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
